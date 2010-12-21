@@ -17,8 +17,7 @@ Although you can find a very detailed tutorial of the hardware on this [Arduino 
 **Note:** almost all the projects I put together use the [SparkFun Arduino UNO Inventors Kit](http://www.sparkfun.com/products/10173) and [SparkFun Beginner Parts Kit](http://www.sparkfun.com/products/10003) which you can buy at [ToysDownUnder.com](http://toysdownunder.com/arduino).
 
 ## Sketch
-![8 LED Chaser Sketch/Schematic][schematic]
-[schematic]: https://github.com/d2kagw/learning-arduino/raw/master/8-led-chaser/fritzing.png "8 LED Chaser Sketch/Schematic"
+<img src="https://github.com/d2kagw/learning-arduino/raw/master/8-led-chaser/fritzing.png" width="600px" alt="8 LED Chaser Sketch/Schematic" title="8 LED Chaser Sketch/Schematic"/ >
 
 **Note:** you can download the [Fritzing](http://fritzing.org/) file [here](https://github.com/d2kagw/learning-arduino/raw/master/8-led-chaser/sketch.fz).
 
