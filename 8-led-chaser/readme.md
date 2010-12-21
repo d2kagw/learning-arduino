@@ -1,9 +1,10 @@
 ## Pattern based 8 LED Chaser
 
-Last night I completed a simple 8 LED Chaser.
-The hardware is identical to the Arduino Examples using the [74HC595 Shift Register](http://www.nxp.com/documents/data_sheet/74HC_HCT595.pdf).
+<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/NIt1EzYM108?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/NIt1EzYM108?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
-Although you can find a very detailed tutorial of the hardware on this [Arduino page](http://www.arduino.cc/en/Tutorial/ShiftOut), I'll go over the basics here.
+Last night I completed a simple 8 LED Chaser - it's one of my first 'real' projects I've constructed on the Arduino. The hardware is nearly identical to the Arduino Examples using the [74HC595 Shift Register](http://www.nxp.com/documents/data_sheet/74HC_HCT595.pdf), but I've tinkered with the code a fair bit to allow more intricate animation of the LEDs.
+
+Although you can find a very detailed tutorial of the hardware on this [Arduino page](http://www.arduino.cc/en/Tutorial/ShiftOut), you can find the full instructions required to set it up below.
 
 ## What you'll need
 
