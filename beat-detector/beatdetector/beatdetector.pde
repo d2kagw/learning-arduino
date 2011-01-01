@@ -1,14 +1,11 @@
 /*
   Beat Detector v1
   
-  Uses a touch sensor input that a user 'taps' to a beat.
-  The board code records the tap intervals and calculates the BPM.
-  Two lights are on the board:
-  * LED1 blinks as you tap
-  * LED2 blinks to the calculated beat
+  Uses a push button to detect the beat through a users tapping rhythm.
+  The code records the tap intervals and calculates the BPM, flashing an LED to the beat.
   
   Details on the circuit can be found here:
-  https://github.com/d2kagw/learning-arduino/tree/master/8-led-chaser
+  https://github.com/d2kagw/learning-arduino/tree/master/beat-detector
   
   Created 1/1/11 by Aaron Wallis
 */

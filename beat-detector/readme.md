@@ -1,10 +1,10 @@
 ## Rhythm/Beat Detector v1
 
-<object width="600" height="362"><param name="movie" value="Rhythm/Beat Detector v1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="Rhythm/Beat Detector v1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
+<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/kFgMoDdVyFo?hl=en&fs=1&hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/kFgMoDdVyFo?hl=en&fs=1&hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
 On my quest to build the greatest 3D LED matrix I thought i'd be a good idea to build a beat detector so the animations I eventually program into the project can adjust themselves to the beat of the music.
 
-This is a fairly rough project, I only started it this morning, and I've been drinking pretty heavily all day (it's New Years - stop looking at me like that).
+This is a fairly rough project, I hacked it together in a day, and I was drinking pretty heavily while tinkering (it was New Years Day - stop looking at me like that).
 This version requires human input, so you need to hit a button to the rhythm for now.
 
 The code really needs a clean up, but that'll come in the next few days.
