@@ -2,7 +2,12 @@
 
 <object width="600" height="362"><param name="movie" value="Rhythm/Beat Detector v1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="Rhythm/Beat Detector v1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
-Rhythm/Beat Detector v1
+On my quest to build the greatest 3D LED matrix I thought i'd be a good idea to build a beat detector so the animations I eventually program into the project can adjust themselves to the beat of the music.
+
+This is a fairly rough project, I only started it this morning, and I've been drinking pretty heavily all day (it's New Years - stop looking at me like that).
+This version requires human input, so you need to hit a button to the rhythm for now.
+
+The code really needs a clean up, but that'll come in the next few days.
 
 ## What you'll need
 
@@ -17,9 +22,9 @@ Rhythm/Beat Detector v1
 **Note:** almost all the projects I put together use the [SparkFun Arduino UNO Inventors Kit](http://www.sparkfun.com/products/10173) and [SparkFun Beginner Parts Kit](http://www.sparkfun.com/products/10003) which you can buy at [ToysDownUnder.com](http://toysdownunder.com/arduino).
 
 ## Sketch
-<img src="fritzing.png" width="600px" alt="Rhythm/Beat Detector v1" title="Rhythm/Beat Detector v1"/ >
+<img src="https://github.com/d2kagw/learning-arduino/raw/master/beat-detector/fritzing.png" width="600px" alt="Rhythm/Beat Detector v1" title="Rhythm/Beat Detector v1"/ >
 
-**Note:** you can download the [Fritzing](http://fritzing.org/) file [here](beatdetector.fz).
+**Note:** you can download the [Fritzing](http://fritzing.org/) file [here](https://github.com/d2kagw/learning-arduino/raw/master/beat-detector/beatdetector.fz).
 
 ## Code
 
@@ -171,4 +176,4 @@ You'll find that almost half the code is managing button states - I'll be releas
       _counterBPM += 1;
     };
 
-**Note:** you can download the [Arduino](http://www.arduino.cc/en/Main/Software) source code from [here](Rhythm/Beat Detector v1).
+**Note:** you can download the [Arduino](http://www.arduino.cc/en/Main/Software) source code from [here](https://github.com/d2kagw/learning-arduino/raw/master/beat-detector/beatdetector/beatdetector.pde).
