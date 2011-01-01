@@ -7,8 +7,7 @@
  Details on the circuit can be found here:
  https://github.com/d2kagw/learning-arduino/tree/master/8-led-chaser
  
- created 21 Dec. 2010
- by Aaron Wallis
+ created 21 Dec. 2010 by Aaron Wallis
 */
  
 // The pin configuration for the shift register.
