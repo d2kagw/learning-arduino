@@ -1,6 +1,6 @@
-## Rhythm/Beat Detector v1
+## Arduino Rhythm/Beat Detector v1
 
-<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/kFgMoDdVyFo?hl=en&fs=1&hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/kFgMoDdVyFo?hl=en&fs=1&hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
+<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/kFgMoDdVyFo?fs=1&amp;hl=en_US&amp;hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/kFgMoDdVyFo?fs=1&amp;hl=en_US&amp;hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
 On my quest to build the greatest 3D LED matrix I thought i'd be a good idea to build a beat detector so the animations I eventually program into the project can adjust themselves to the beat of the music.
 
