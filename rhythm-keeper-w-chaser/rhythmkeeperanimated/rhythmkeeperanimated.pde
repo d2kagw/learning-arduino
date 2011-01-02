@@ -81,6 +81,9 @@ void setup () {
   pinMode(  PIN_SERIAL_DATA, OUTPUT);
   pinMode( PIN_SERIAL_CLOCK, OUTPUT);
   pinMode( PIN_SERIAL_LATCH, OUTPUT);
+  
+  // reset the animation & shift register
+  resetAnimation();
 };
 
 
@@ -149,6 +152,7 @@ void beat(int size) {
     shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, patterns[pattern_index*2]);
     digitalWrite(PIN_SERIAL_LATCH, HIGH);
     
+    // store the timing for the next cycle
     _requiredTiming = patterns[(pattern_index*2)+1];
     
     // increment the pattern index
@@ -157,6 +161,18 @@ void beat(int size) {
     // loop if necessary
     if (pattern_index > pattern_count) pattern_index = 0;
   }
+}
+
+
+
+// --------------------------------------------------------------
+// Reset Animation, called when the user is changing the timing
+//
+void resetAnimation() {
+  digitalWrite(PIN_SERIAL_LATCH, LOW);
+  shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, B00000000);
+  digitalWrite(PIN_SERIAL_LATCH, HIGH);
+  pattern_index = 0;
 }
 
 
@@ -172,6 +188,9 @@ void beatManage() {
       // start counting taps
       _isListening = _isFirst = true;
       _tapCount = 0;
+      
+      // call the reset method
+      resetAnimation();
       
       // turn on the status light so the user knows we're expecting input
       digitalWrite(PIN_LED_STATUS, HIGH);
