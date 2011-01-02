@@ -53,7 +53,7 @@ byte patterns[72] = {
   B11000011, HALF_BEAT,
   B00111100, HALF_BEAT,
   
-  B00000000, WHOLE_BEAT
+  B00000000, WHOLE_BEAT,
   
   //---- 4
   
