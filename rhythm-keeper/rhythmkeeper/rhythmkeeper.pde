@@ -53,6 +53,22 @@ void loop() {
   // turn off the beat light
   digitalWrite(ledBeat, LOW);
   
+  // call the loop_timer, that's where the magic happens
+  loop_timer();
+  
+  // a delay is required for the timing to work correctly.
+  // not entirely sure why this is the case,
+  // maybe someone smarter than I could explain?
+  delay(5);
+}
+
+// called when a beat occurs
+void beat() {
+  digitalWrite(ledBeat, HIGH);
+}
+
+// Where all the Rhythm detection and rhythm management occurs
+void loop_timer() {
   // if the button is down...
   if (tapper.isHit()) {
     // and we're not currently counting taps
@@ -95,31 +111,20 @@ void loop() {
     digitalWrite(ledStatus, LOW);
   }
   
-  // if we're in blinking mode
-  if (!_isListening) {
-    // and our timing is set
-    if (beater.currentTiming != 0) {
-      // and we're on a beat
-      if ( _clock >= beater.currentTiming) {
-        // blink the light
-        digitalWrite(ledBeat, HIGH);
-        
-        // reset the clock
-        _clock = 0;
-      } else {
-        
-        // increment the clock
-        _clock ++;
-      }
+  // if we're in blinking mode and our timing is set
+  if (!_isListening && beater.currentTiming != 0) {
+    // and we're on a beat
+    if ( _clock >= beater.currentTiming) {
+      // call the beat method
+      beat();
+      
+      // reset the clock
+      _clock = 0;
     }
+    _clock ++;
   }
   
   // if we're listening, hit the loop
   if (_isListening) beater.loop();
-  
-  // a delay is required for the timing to work correctly.
-  // not entirely sure why this is the case,
-  // maybe someone smarter than I could explain?
-  delay(5);
 };
 
