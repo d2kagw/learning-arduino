@@ -53,7 +53,7 @@ int requiredTaps = 6;
 
 // pattern cycle management
 int pattern_index = 0;
-int pattern_count = sizeof(patterns) / 2;
+int pattern_count = (sizeof(patterns) - 1) / 2;
 
 // Tap and Rhythm library
 Tap tapper(PIN_BUTTON);
