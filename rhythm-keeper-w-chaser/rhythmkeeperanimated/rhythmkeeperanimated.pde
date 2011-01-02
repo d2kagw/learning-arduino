@@ -134,7 +134,7 @@ void loop() {
   // a delay is required for the timing to work correctly.
   // not entirely sure why this is the case,
   // maybe someone smarter than I could explain?
-  delay(10);
+  delay(1);
 }
 
 
