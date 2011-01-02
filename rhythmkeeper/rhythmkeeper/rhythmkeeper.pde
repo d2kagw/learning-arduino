@@ -14,23 +14,6 @@
   Details on the circuit can be found here:
   https://github.com/d2kagw/learning-arduino/tree/master/beat-detector-v2
   
-  Created 1/1/11 by Aaron Wallis
+  Created 2/1/11 by Aaron Wallis
 */
-
-// pins
-int ledBeat      = 4;
-int ledStatus    = 3;
-int buttonTap    = 5;
-
-void setup() {
-  Serial.begin(9600);
-  
-  pinMode(ledBeat,   OUTPUT);
-  pinMode(ledStatus, OUTPUT);
-  pinMode(buttonTap, INPUT);
-};
-
-void loop() {
-
-};
-
+#import <SingleTap.h>
