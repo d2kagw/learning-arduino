@@ -1,6 +1,6 @@
 ## Rhythm Keeper
 
-<object width="599" height="362"><param name="movie" value="http://www.youtube.com/v/npFyAivyuIA?fs=1&amp;hl=en_US&amp;hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/npFyAivyuIA?fs=1&amp;hl=en_US&amp;hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="599" height="362"></embed></object>
+<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/npFyAivyuIA?fs=1&amp;hl=en_US&amp;hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/npFyAivyuIA?fs=1&amp;hl=en_US&amp;hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
 Yesterday I posted the details for a [Beat Detector](http://learning-arduino.tumblr.com/post/2558360094/beat-detector-v1). It was quite a rough prototype, but it did the job.
 
