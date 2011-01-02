@@ -43,7 +43,7 @@
 // but you can change this value to a smaller number if you like
 // the larger the number, the greater the accuracy, but the longer
 // the learning process
-int requiredTaps = 10;
+int requiredTaps = 6;
 
 
 
