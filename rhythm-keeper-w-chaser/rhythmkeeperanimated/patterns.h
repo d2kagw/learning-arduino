@@ -2,6 +2,7 @@
 #define   WHOLE_BEAT 0
 #define    HALF_BEAT 1
 #define QUARTER_BEAT 2
+#define  EIGHTH_BEAT 3
 
 // patterns and time
 // first column is the 8bit binary animation state

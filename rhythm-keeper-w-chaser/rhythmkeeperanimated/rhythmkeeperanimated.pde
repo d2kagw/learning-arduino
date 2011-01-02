@@ -101,6 +101,12 @@ void loop() {
   if (!_isListening && beater.currentTiming != 0) {
     int __time;
     
+    // are we on an eighth beat?
+    __time = (beater.currentTiming / 8);
+    if (_clock == __time || _clock == __time * 2 || _clock == __time * 3 || _clock == __time * 4 || _clock == __time * 5 || _clock == __time * 6 || _clock == __time * 7 || _clock == __time * 8 ) {
+      beat(EIGHTH_BEAT);
+    }
+    
     // are we on a quarter beat?
     __time = (beater.currentTiming / 4);
     if (_clock == __time || _clock == __time * 2 || _clock == __time * 3 || _clock == __time * 4) {
