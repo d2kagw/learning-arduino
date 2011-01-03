@@ -18,8 +18,8 @@
   Created 3/1/11 by Aaron Wallis
 */
 
-#include <Tap.h>
-#include <Rhythm.h>
+#include <Tap.h>     // http://github.com/d2kagw/arduino-tap-library/
+#include <Rhythm.h>  // http://github.com/d2kagw/arduino-rhythm-library/
 
 // the animation patterns are saved in the patterns.h file
 // in an attempt to keep this file clean
@@ -35,9 +35,10 @@
 #define       PIN_BUTTON  10
 #define     PIN_LED_BEAT  9
 #define   PIN_LED_STATUS  8
+
 #define  PIN_SERIAL_DATA  2
-#define PIN_SERIAL_CLOCK  3
-#define PIN_SERIAL_LATCH  4
+#define PIN_SERIAL_LATCH  3
+#define PIN_SERIAL_CLOCK  4
 
 // By default the app will require ten 'taps'
 // but you can change this value to a smaller number if you like
