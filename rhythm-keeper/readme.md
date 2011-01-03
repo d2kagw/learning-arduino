@@ -19,7 +19,7 @@ I'll be releasing a more complex version of this prototype tomorrow which will i
 * Breadboard
 * 5x Jumper Wires
 * 2x LEDs (of different colours)
-* 1x breadboard mountable buttons
+* 1x breadboard mountable button
 * 2x 330&#8486; resistors (or which ever resistors best suit your LEDs)
 * 1x 10k&#8486; resistors
 
@@ -32,8 +32,8 @@ I'll be releasing a more complex version of this prototype tomorrow which will i
 
 ## Code
 
-    #include <Tap.h>     - http://github.com/d2kagw/arduino-tap-library/
-    #include <Rhythm.h>  - http://github.com/d2kagw/arduino-rhythm-library/
+    #include <Tap.h>    // http://github.com/d2kagw/arduino-tap-library/
+    #include <Rhythm.h> // http://github.com/d2kagw/arduino-rhythm-library/
     
     int    button = 5;
     int   ledBeat = 4;
