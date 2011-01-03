@@ -66,6 +66,7 @@ int _tapCount        = 0;
 
 // animation management
 unsigned int _clock          = 0;
+unsigned int _timingClock    = 0;
 unsigned int _requiredTiming = 0;
 
 
@@ -94,19 +95,20 @@ void setup () {
 // Main Loop
 //
 void loop() {
-  // turn off the beat light
-  digitalWrite(PIN_LED_BEAT, LOW);
-  
-  // call the beat manage method
-  // this guy controls the detection of ze rhythm
-  beatManage();
-  
   // control the animation timing based on the stored beat
   // if we're not listening and we've got a beat timing...
   if (!_isListening && beater.currentTiming != 0) {
     
+    // look for whole beats
+    // just for the beat status light
+    if (_clock == beater.currentTiming) {
+      Serial.println("doof");
+      digitalWrite(PIN_LED_BEAT, digitalRead(PIN_LED_BEAT) != HIGH);
+      _clock = 0;
+    }
+    
     // if the clock is at the required timing
-    if (_clock == _requiredTiming) {
+    if (_timingClock == _requiredTiming) {
       // move to the next stage of the LED Matrix animation
       digitalWrite(PIN_SERIAL_LATCH, LOW);
       shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, patterns[pattern_index*2]);
@@ -122,13 +124,19 @@ void loop() {
       if (pattern_index > pattern_count) pattern_index = 0;
       
       // reset the clock
-      _clock = 0;
+      _timingClock = 0;
     }
     
     // increment the clock
+    _timingClock ++;
     _clock ++;
+  } else {
+    digitalWrite(PIN_LED_BEAT, LOW);
   }
-
+  
+  // call the beat manage method
+  // this guy controls the detection of ze rhythm
+  beatManage();
   
   // a delay is required for the timing to work correctly.
   // not entirely sure why this is the case,
@@ -149,6 +157,7 @@ void resetAnimation() {
   
   // all indexes back to zero
   pattern_index   = 0;
+  _timingClock    = 0;
   _clock          = 0;
   _requiredTiming = 0;
 }
