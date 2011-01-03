@@ -63,8 +63,10 @@ Rhythm beater;
 boolean _isListening = false;
 boolean _isFirst     = false;
 int _tapCount        = 0;
-int _clock           = 0;
-int _requiredTiming  = 0;
+
+// animation management
+unsigned int _clock          = 0;
+unsigned int _requiredTiming = 0;
 
 
 
@@ -102,34 +104,28 @@ void loop() {
   // control the animation timing based on the stored beat
   // if we're not listening and we've got a beat timing...
   if (!_isListening && beater.currentTiming != 0) {
-    int __time;
     
-    // are we on an eighth beat?
-    __time = (beater.currentTiming / 8);
-    if (_clock == __time || _clock == __time * 2 || _clock == __time * 3 || _clock == __time * 4 || _clock == __time * 5 || _clock == __time * 6 || _clock == __time * 7 || _clock == __time * 8 ) {
-      beat(EIGHTH_BEAT);
-    }
-    
-    // are we on a quarter beat?
-    __time = (beater.currentTiming / 4);
-    if (_clock == __time || _clock == __time * 2 || _clock == __time * 3 || _clock == __time * 4) {
-      beat(QUARTER_BEAT);
-    }
-    
-    // are we on a half beat?
-    __time = (beater.currentTiming / 2);
-    if (_clock == __time || _clock == __time * 2) {
-      beat(HALF_BEAT);
-    }
-    
-    // are we on a whole beat?
-    if (_clock >= (beater.currentTiming)) {
-      // turn the beat status LED on
-      digitalWrite(PIN_LED_BEAT, HIGH);
-      beat(WHOLE_BEAT);
+    // if the clock is at the required timing
+    if (_clock == _requiredTiming) {
+      // move to the next stage of the LED Matrix animation
+      digitalWrite(PIN_SERIAL_LATCH, LOW);
+      shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, patterns[pattern_index*2]);
+      digitalWrite(PIN_SERIAL_LATCH, HIGH);
+      
+      // store the timing for the next cycle
+      _requiredTiming = ((beater.currentTiming * patterns[(pattern_index*2)+1]) / WHOLE_BEAT);
+      
+      // increment the pattern index
+      pattern_index ++;
+      
+      // loop if necessary
+      if (pattern_index > pattern_count) pattern_index = 0;
+      
+      // reset the clock
       _clock = 0;
     }
     
+    // increment the clock
     _clock ++;
   }
 
@@ -142,37 +138,19 @@ void loop() {
 
 
 
-// -----------------------------------------
-// Beat Method, called on a beat interval
-//
-void beat(int size) {
-  if (_requiredTiming == size) {
-    // move to the next stage of the LED Matrix animation
-    digitalWrite(PIN_SERIAL_LATCH, LOW);
-    shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, patterns[pattern_index*2]);
-    digitalWrite(PIN_SERIAL_LATCH, HIGH);
-    
-    // store the timing for the next cycle
-    _requiredTiming = patterns[(pattern_index*2)+1];
-    
-    // increment the pattern index
-    pattern_index ++;
-    
-    // loop if necessary
-    if (pattern_index > pattern_count) pattern_index = 0;
-  }
-}
-
-
-
 // --------------------------------------------------------------
 // Reset Animation, called when the user is changing the timing
 //
 void resetAnimation() {
+  // reset the shift register back to null
   digitalWrite(PIN_SERIAL_LATCH, LOW);
   shiftOut(PIN_SERIAL_DATA, PIN_SERIAL_CLOCK, MSBFIRST, B00000000);
   digitalWrite(PIN_SERIAL_LATCH, HIGH);
-  pattern_index = 0;
+  
+  // all indexes back to zero
+  pattern_index   = 0;
+  _clock          = 0;
+  _requiredTiming = 0;
 }
 
 
