@@ -1,5 +1,6 @@
 ## Arduino LED bar with rhythm detection
 
+<object width="600" height="362"><param name="movie" value="http://www.youtube.com/v/0XLEAU4-VL0?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/0XLEAU4-VL0?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="362"></embed></object>
 
 Yesterday I posted a [Rhythm Detection](http://learning-arduino.tumblr.com/post/2563968841/arduino-rhythm-keeper) prototype which included a [new library](http://learning-arduino.tumblr.com/post/2563938095/arduino-rhythm-library) for measuring time intervals between events.
 
