@@ -20,7 +20,7 @@ void setup()  {
 void loop()  { 
   digitalWrite(PIN_DIR, HIGH);
   analogWrite(PIN_PWM, curspeed);
-
+  
   curspeed = curspeed + fadeAmount;
   
   Serial.println(curspeed);
@@ -31,3 +31,4 @@ void loop()  {
   
   delay(50);
 }
+
