@@ -1,6 +1,7 @@
-Not so long ago I bought my first Arduino board.
-As I start to learn neat tricks and building various tools and toys, O'll be uploading the info here for all the world to see.
+All my various Arduino projects that I've started and (mostly) completed.
 
-This repo is the source for my blog posts which can be read on [learning-arduino.tumblr.com](http://learning-arduino.tumblr.com/).
+In almost all cases, there's a full blog post to support the project in question, so be sure to check out my Arduino blog: [learning-arduino.tumblr.com](http://learning-arduino.tumblr.com/).
 
-Feel free to use any of the source in any way you like.
+Also, most projects will include a [Fritzing](http://fritzing.org/) file so you may need to have that app installed.
+
+Feel free to take & use what you like!
