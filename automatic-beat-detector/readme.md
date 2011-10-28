@@ -25,12 +25,48 @@ What I've done is throw an Electret Mic and OpAmp together with the output feedi
 * 1x 100kΩ Potentiometer (may need to up this depending on your implementation)
 
 ## Sketch
-<img src="<image path>" width="600px" alt="<project name>" title="<project name>"/ >
+<img src="https://github.com/d2kagw/learning-arduino/raw/master/automatic-beat-detector/fritzing.png" width="600px" alt="Automatic Beat Detector" title="Automatic Beat Detector"/ >
 
-**Note:** you can download the [Fritzing](http://fritzing.org/) file [here](<fritzing path>).
+**Note:** you can download the [Fritzing](http://fritzing.org/) file [here](https://raw.github.com/d2kagw/learning-arduino/master/automatic-beat-detector/auto-beat-detection.fz).
 
 ## Code
 
-    <code>
+    int sensorValue = 0;
+    float variance = 0.96;
+    
+    int newHigh = 0;
+    int counter = 0;
+    
+    void setup() {
+      pinMode(12, OUTPUT);
+      pinMode(11, OUTPUT);
+      
+      Serial.begin(9600);
+    }
+    
+    void loop() {
+      sensorValue = analogRead(A5);
+      
+      if (sensorValue > newHigh) {
+        newHigh = sensorValue * variance;
+        counter = 0;
+        
+        Serial.println("beat");
+        digitalWrite(11, HIGH);
+      } else {
+        Serial.println(" ");
+        digitalWrite(11, LOW);
+      }
+      
+      counter = counter + 1;
+      if (counter > 50) {
+        counter = 0;
+        newHigh = newHigh * variance;
+      }
+      
+      delay(1);
+    }
 
-**Note:** you can download the [Arduino](http://www.arduino.cc/en/Main/Software) source code from [here](<code path>).
+
+
+**Note:** you can download the [Arduino](http://www.arduino.cc/en/Main/Software) source code from [here](https://github.com/d2kagw/learning-arduino/raw/master/automatic-beat-detector/automaticbeatdetector/automaticbeatdetector.pde).
