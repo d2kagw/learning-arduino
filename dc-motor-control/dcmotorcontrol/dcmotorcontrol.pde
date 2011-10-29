@@ -10,9 +10,11 @@ int limitting = 225;
 int PIN_DIR = 10;
 int PIN_PWM =  9;
 
-void setup()  { 
+void setup()  {
   pinMode(PIN_DIR, OUTPUT);
   pinMode(PIN_PWM, OUTPUT);
+  
+  pinMode(buttonPin, INPUT); 
   
   Serial.begin(9600);
 } 
