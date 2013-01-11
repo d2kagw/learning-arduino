@@ -1,9 +1,10 @@
 # ICs
-* 1x 555: Timing
-* 2x LM358N: Dual Operational Amp
-* 2x LA3600: 5-Band Graphic Eq
-* 5x 74HC595N: 8-Bit Shift Register
-* 1x MAX7219CNG: 8-Bit LED Display Driver
-* 1x TLC5940NT: 16-Bit LED Display Driver
-
-TODO - needs updating
+* 1x MAX7219CNG: [8-Bit LED Display Driver](http://www.sparkfun.com/datasheets/Components/General/COM-09622-MAX7219-MAX7221.pdf)
+* 1x NE555P: [Precision Timing](http://www.datasheetcatalog.org/datasheet2/c/0hex3d1gxjejda7ur3y2toipkzfy.pdf)
+* 1x TLC5940NT: [16-Bit LED Display Driver](http://datasheet.octopart.com/TLC5940NT-Texas-Instruments-datasheet-153017.pdf)
+* 2x BA3812L: [5-channel graphic equaliser](http://www.datasheetcatalog.org/datasheet/rohm/ba3812l.pdf)
+* 2x L293DNE: [H-Drivers](http://datasheet.octopart.com/L293DNE-Texas-Instruments-datasheet-151173.pdf)
+* 2x LA3600: [5-Band Graphic Eq](http://www.datasheetcatalog.org/datasheet/sanyo/ds_pdf_e/LA3600.pdf)
+* 2x LM358N: [Dual Operational Amps](http://www.national.com/ds/LM/LM158.pdf)
+* 5x ULN2003A: [Darlington Arrays](http://www.datasheetcatalog.org/datasheet/SGSThomsonMicroelectronics/mXtyyvx.pdf)
+* 6x 74HC595N: [8-Bit Shift Register](http://www.datasheetcatalog.org/datasheet/philips/74HC595PW.pdf)

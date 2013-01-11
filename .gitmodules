@@ -1,0 +1,3 @@
+[submodule "thermal-printer-demo/thermal"]
+	path = thermal-printer-demo/thermal
+	url = https://github.com/adafruit/Thermal-Printer-Library.git
