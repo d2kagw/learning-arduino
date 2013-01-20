@@ -355,12 +355,9 @@ void draw () {
     }
 
     // Blend new pixel value with the value from the prior frame
-    ledColor[i][0]  = (short)((((rb >> 24) & 0xff) * weight +
-                               prevColor[i][0]     * fade) >> 8);
-    ledColor[i][1]  = (short)(((( g >> 16) & 0xff) * weight +
-                               prevColor[i][1]     * fade) >> 8);
-    ledColor[i][2]  = (short)((((rb >>  8) & 0xff) * weight +
-                               prevColor[i][2]     * fade) >> 8);
+    ledColor[i][0]  = (short)((((rb >> 24) & 0xff) * weight + prevColor[i][0] * fade) >> 8);
+    ledColor[i][1]  = (short)(((( g >> 16) & 0xff) * weight + prevColor[i][1] * fade) >> 8);
+    ledColor[i][2]  = (short)((((rb >>  8) & 0xff) * weight + prevColor[i][2] * fade) >> 8);
 
     // Boost pixels that fall below the minimum brightness
     sum = ledColor[i][0] + ledColor[i][1] + ledColor[i][2];

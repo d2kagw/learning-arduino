@@ -1,8 +1,8 @@
 import processing.video.*;
 
 // Number of columns and rows in our system
-int columns = 15;
-int rows = 10;
+int columns = 16;
+int rows = 12;
 
 int videoScaleWidth, videoScaleHeight;
 
@@ -11,9 +11,10 @@ Capture video;
 
 void setup() {
   size(320,240);
+  noSmooth();
   
-  videoScaleWidth  = width  / columns;
-  videoScaleHeight = height / rows;
+  videoScaleWidth  = ceil(width  / columns);
+  videoScaleHeight = ceil(height / rows);
   
   String[] cameras = Capture.list();
   
@@ -63,7 +64,7 @@ void drawPixel(int column, int row) {
   color c = video.pixels[column + row*video.width];
   
   fill(c);
-  stroke(c);
+  stroke(0);
   rect(x,y,videoScaleWidth,videoScaleHeight);
 }
 
