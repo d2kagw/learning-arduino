@@ -100,14 +100,7 @@ void set_render_mode(int mode_index) {
   current_renderer().wake_up();
 }
 
-// Return the current Renderer
-Renderer current_renderer() {
-  return (Renderer)renderers.get(render_mode);
-}
-
-// ----------------------------------------------------
-
-void mouseClicked() {
+void next_render_mode() {
   int tmp = render_mode + 1;
   if (tmp > renderers.size()-1) {
     tmp = 0;
@@ -116,3 +109,35 @@ void mouseClicked() {
   set_render_mode(tmp);
 }
 
+// Return the current Renderer
+Renderer current_renderer() {
+  return (Renderer)renderers.get(render_mode);
+}
+
+// ----------------------------------------------------
+
+void keyPressed(){
+  switch(key) {
+    case('w'):
+      println("Brightness up");
+      break;
+    case('s'):
+      println("Brightness down");
+      break;
+      
+    case('d'):
+      println("Colour forward");
+      break;
+    case('a'):
+      println("Colour back");
+      break;
+    
+    case(' '):
+      println("Cycle render mode");
+      next_render_mode();
+      break;
+      
+    default:
+      println("Not sure what '" + key + "' is meant to do?");
+  }
+}
