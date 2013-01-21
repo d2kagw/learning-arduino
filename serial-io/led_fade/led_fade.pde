@@ -22,8 +22,6 @@ void setup() {
 }
 
 void draw() {
-  background(0);
-  
   pwmValue = pwmValue + delta;
   if (pwmValue<10) {
     delta = 10;
