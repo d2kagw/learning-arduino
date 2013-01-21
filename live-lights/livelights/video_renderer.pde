@@ -21,6 +21,11 @@ class VideoRenderer extends Renderer  {
   
   void wake_up() {
     println("Camera Renderer: Waking Up");
+    
+    fill(0);
+    rect(0, 0, width, height);
+    
+    frameRate(30);
     video.start();
   }
   
