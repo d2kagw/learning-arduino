@@ -29,7 +29,7 @@ class DiscoRenderer extends Renderer  {
   
   void wake_up() {
     println("Disco Renderer: Waking Up");
-    frameRate(4);
+    frameRate(12);
   }
   
   void sleep() {

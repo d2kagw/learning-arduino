@@ -25,7 +25,7 @@ class ColorRenderer extends Renderer  {
   
   void wake_up() {
     println("Color Renderer: Waking Up");
-    frameRate(1);
+    frameRate(12);
   }
   
   void sleep() {
