@@ -1,43 +1,3 @@
-// Renderer Super Class
-class Renderer {
-  Renderer() {
-    // nada
-  }
-  boolean draw() {
-    return true;
-  }
-  void wake_up() {
-    println("Wake Up");
-  }
-  void sleep() {
-    println("Sleep");
-  }
-}
-
-// ------------------------------
-
-class ColorRenderer extends Renderer  {
-  int hue;
-  int hueMax;
-  ColorRenderer(PApplet core) {
-    hue = 0;
-    hueMax = 100;
-    
-    colorMode(HSB, hueMax, hueMax, hueMax);
-  }
-  
-  boolean draw() {
-    hue += 1;
-    if (hue > hueMax) hue = 0;
-    
-    fill(hue, hueMax, hueMax);
-    rect(0, 0, width, height);
-    
-    return true;
-  }
-}
-
-// ------------------------------
 import processing.video.*;
 class VideoRenderer extends Renderer  {
   Capture video;
@@ -54,14 +14,19 @@ class VideoRenderer extends Renderer  {
         println(cameras[i]);
       }
       
-      // TODO: we need to feed in the frame rate here
-      video = new Capture(core, width, height, 30);
+      // TODO: we need to feed in the camera name here
+      video = new Capture(core, width, height, "Display iSight");
     }
   }
   
   void wake_up() {
     println("Camera Renderer: Waking Up");
     video.start();
+  }
+  
+  void sleep() {
+    println("Camera Renderer: Sleeping");
+    video.stop();
   }
   
   boolean draw() {
@@ -74,6 +39,8 @@ class VideoRenderer extends Renderer  {
     // lets render actual picture in the background for testing
     image(video, 0, 0, width, height);
     
+    // just return true for now
+    // TODO: implemenent error handling
     return true;
   }
 }
