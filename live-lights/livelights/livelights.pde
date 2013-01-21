@@ -69,21 +69,20 @@ void draw() {
 // ----------------------------------------------------
 
 void drawPixel(int column, int row) {
+  stroke(0);
+  
   // Where are we, pixel-wise?
   int x = column * LED_BLOCK_WIDTH;
   int y = row    * LED_BLOCK_HEIGHT;
   
   // Looking up the appropriate color in the pixel array
-  color c = pixels[ (column+(LED_BLOCK_WIDTH/2)) + (row+(LED_BLOCK_HEIGHT/2)) * width ];
+  int pixel = (y+(LED_BLOCK_HEIGHT/2)) * width + (x+(LED_BLOCK_WIDTH/2));
+  color c = pixels[pixel];
+  fill(c);
   
   // draw a block 
-  fill(c);
-  stroke(0);
   rect(x, y, LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT);
-  
-  // lets draw a dot
-  fill(0);
-  set(x + (LED_BLOCK_WIDTH/2), y + (LED_BLOCK_HEIGHT/2), 0);
+  rect(x+(LED_BLOCK_WIDTH/2), y+(LED_BLOCK_HEIGHT/2), 1, 1);
 }
 
 // ----------------------------------------------------
