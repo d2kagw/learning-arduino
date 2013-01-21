@@ -3,8 +3,7 @@ import processing.video.*;
 
 // Display Settings
 static final int   DISPLAY_WIDTH = 320;
-static final float DISPLAY_RATIO = 16.0/9.0;
-static final int   DISPLAY_FPS = 30;
+static final float DISPLAY_RATIO = 16.0 / 9.0;
 
 // LED Settings
 static final int LED_COLUMNS = 20;
@@ -18,25 +17,29 @@ Renderer rendererColor, rendererDisco, rendererVideo;
 
 void setup() {
   // set up the screen real estate
-  println("Creating display: " + DISPLAY_WIDTH + "x" + ceil(DISPLAY_WIDTH/DISPLAY_RATIO) + "@" + DISPLAY_FPS);
+  println("Creating display: " + DISPLAY_WIDTH + "x" + ceil(DISPLAY_WIDTH/DISPLAY_RATIO));
   size(DISPLAY_WIDTH, ceil(DISPLAY_WIDTH/DISPLAY_RATIO));
-  frameRate(DISPLAY_FPS);
   noSmooth();
+  
+  // ----------------------------------------------------
+  // Setup the LED Structure
   
   LED_BLOCK_WIDTH  = ceil(DISPLAY_WIDTH / LED_COLUMNS);
   LED_BLOCK_HEIGHT = ceil(ceil(DISPLAY_WIDTH/DISPLAY_RATIO) / LED_ROWS);
   
   // ----------------------------------------------------
+  // Setup the Renderers
   
   // Setup our renderers
   renderers = new ArrayList();
+  println("Creating renderers, this can take a few seconds...");
   
   // create color renderer
   rendererColor = new ColorRenderer(this);
   renderers.add(rendererColor);
   
   // create disco renderer
-  rendererDisco = new Renderer();
+  rendererDisco = new DiscoRenderer(this);
   renderers.add(rendererDisco);
   
   // create video renderer
