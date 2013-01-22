@@ -44,14 +44,6 @@
 
 #include <SPI.h>
 
-// LED pin for Adafruit 32u4 Breakout Board:
-//#define LED_DDR  DDRE
-//#define LED_PORT PORTE
-//#define LED_PIN  _BV(PORTE6)
-// LED pin for Teensy:
-//#define LED_DDR  DDRD
-//#define LED_PORT PORTD
-//#define LED_PIN  _BV(PORTD6)
 // LED pin for Arduino:
 #define LED_DDR  DDRB
 #define LED_PORT PORTB

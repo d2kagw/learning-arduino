@@ -15,7 +15,7 @@ class VideoRenderer extends Renderer  {
       }
       
       // TODO: we need to feed in the camera name here
-      video = new Capture(core, width, height, "Display iSight");
+      video = new Capture(core, width, height, 30);
     }
   }
   

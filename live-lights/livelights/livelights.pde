@@ -1,19 +1,23 @@
 // Import Time
 import processing.video.*;
+import processing.serial.*;
 
 // Display Settings
 static final int   DISPLAY_WIDTH = 320;
 static final float DISPLAY_RATIO = 16.0 / 9.0;
 
 // LED Settings
-static final int LED_COLUMNS = 20;
-static final int LED_ROWS    = 8;
+static final int LED_COLUMNS = 10;//18;
+static final int LED_ROWS    = 5;
 int LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT;
 
 // Renderers & Render Modes
 int render_mode = 0;
 ArrayList renderers;
 Renderer rendererColor, rendererDisco, rendererVideo;
+
+// the serial port
+Serial myPort;
 
 void setup() {
   // set up the screen real estate
@@ -48,6 +52,11 @@ void setup() {
   
   // setup the renderer
   set_render_mode(0);
+  
+  // ---------------------------------------------------
+  // Setup the serial comms
+  println(Serial.list());
+  myPort = new Serial(this, Serial.list()[6], 115200);
 }
 
 void draw() {
@@ -58,20 +67,40 @@ void draw() {
   loadPixels();
   
   // render the pixels
+  int current_pixel = 0;
+  int led_count = ((LED_COLUMNS + LED_ROWS)*2);
+  int brightness;
+  byte[] pixel_colors = new byte[6 + (led_count*3)];
+  
+  pixel_colors[current_pixel++] = 'A';
+  pixel_colors[current_pixel++] = 'd';
+  pixel_colors[current_pixel++] = 'a';
+  pixel_colors[current_pixel++] = byte((led_count - 1) >> 8);
+  pixel_colors[current_pixel++] = byte((led_count - 1) & 0xff);
+  pixel_colors[current_pixel++] = byte(pixel_colors[3] ^ pixel_colors[4] ^ 0x55);
+  
   for (int column = 0; column < LED_COLUMNS; column++) {
     for (int row = 0; row < LED_ROWS; row++) {
-      if (column == 0 || column == LED_COLUMNS-1) {
-        drawPixel(column, row);
-      } else if (row == 0 || row == LED_ROWS-1) {
-        drawPixel(column, row);
+      if (column == 0 || column == LED_COLUMNS-1 || row == 0 || row == LED_ROWS-1) {
+        color the_color = drawPixel(column, row);
+        pixel_colors[current_pixel++] = byte(red(the_color));
+        pixel_colors[current_pixel++] = byte(green(the_color));
+        pixel_colors[current_pixel++] = byte(blue(the_color));
       }
-    }    
+    }
   }
+  
+  pixel_colors[current_pixel++] = byte(0);
+  pixel_colors[current_pixel++] = byte(0);
+  pixel_colors[current_pixel++] = byte(0);    
+  
+  println(pixel_colors);
+  myPort.write(pixel_colors);
 }
 
 // ----------------------------------------------------
 
-void drawPixel(int column, int row) {
+color drawPixel(int column, int row) {
   stroke(0);
   
   // Where are we, pixel-wise?
@@ -86,6 +115,9 @@ void drawPixel(int column, int row) {
   // draw a block 
   rect(x, y, LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT);
   rect(x+(LED_BLOCK_WIDTH/2), y+(LED_BLOCK_HEIGHT/2), 1, 1);
+  
+  // return the color
+  return c;
 }
 
 // ----------------------------------------------------
