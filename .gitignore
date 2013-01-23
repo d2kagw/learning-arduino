@@ -1,2 +1,4 @@
 .DS_Store
 live-lights/compiled
+livelights/compiled
+*.java
