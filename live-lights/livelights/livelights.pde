@@ -19,15 +19,20 @@ static final int LED_BLOCK_HEIGHT = ceil( ceil( DISPLAY_WIDTH / DISPLAY_RATIO ) 
 static final int LED_COUNT   = ((LED_COLUMNS + LED_ROWS) * 2) - 4;
 
 // Colours & Processing
-short[][] pixel_colors = new short[LED_COUNT][3],
-     prev_pixel_colors = new short[LED_COUNT][3];
+static final int MIN_BRIGHTNESS = 40;
+int[][]   pixel_colors = new int[LED_COUNT][3],
+     prev_pixel_colors = new int[LED_COUNT][3];
 int[][] pixel_location = new int[LED_COLUMNS][LED_ROWS];
-byte[][] gamma = new byte[256][3];
+byte[][]         gamma = new byte[256][3];
 
 // Renderers & Render Modes
 int render_mode = 0;
 ArrayList renderers;
 Renderer rendererColor, rendererDisco, rendererVideo;
+
+// Modifier Settings
+int modifier_brightness = 100;
+int modifier_renderer   = 0;
 
 // Serial Communications
 Serial serialConnection;
@@ -87,7 +92,7 @@ void setup() {
 // Run the Renderers & Generate output
 void draw() {
   // create/activate and render the current visualiser
-  current_renderer().draw();
+  current_renderer().draw(modifier_renderer);
   
   // Load the pixels
   loadPixels();
@@ -196,16 +201,24 @@ void keyPressed(){
   switch(key) {
     case('w'):
       println("Brightness up");
+      if (modifier_brightness < 100) modifier_brightness += 10;
       break;
     case('s'):
       println("Brightness down");
+      if (modifier_brightness > 10) modifier_brightness -= 10;
       break;
       
     case('d'):
       println("Colour forward");
+      modifier_renderer ++;
+        modifier_renderer = 0;
       break;
     case('a'):
       println("Colour back");
+      modifier_renderer --;
+      if (modifier_renderer < 0) {
+        modifier_renderer = 100;
+      };
       break;
     
     case(' '):
