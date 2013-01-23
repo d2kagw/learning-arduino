@@ -113,18 +113,45 @@ void draw() {
   // We know how many pixels there are, so lets walk around the display
   // the first LED will be the North West pixel (top left corner of the screen)
   int row_id, column_id;
+  int color_red, color_green, color_blue, merged_color, deficit;
   for (int pixel_id = 0; pixel_id < LED_COUNT; pixel_id ++) {
-    // get the position for the LED
+    // get the position & color for the LED
     int[] pixel_colrow = positionForLED(pixel_id);
-    
-    // get the colour for the LED
     color pixel_color  = colorForLED(pixel_colrow[0], pixel_colrow[1]);
-    representLED(pixel_colrow[0], pixel_colrow[1], pixel_color);
+    
+    // process the colour - and adjust the primary brightness to match the user setting
+    color_red   = max(0, int(  red(pixel_color)) - (100 - modifier_brightness));
+    color_green = max(0, int(green(pixel_color)) - (100 - modifier_brightness));
+    color_blue  = max(0, int( blue(pixel_color)) - (100 - modifier_brightness));
+    
+    // ensure brightness
+    if (current_renderer().shouldManageBrightness()) {
+      merged_color = color_red + color_green + color_blue;
+      if(merged_color < MIN_BRIGHTNESS) {
+        if(merged_color == 0) {
+          deficit = MIN_BRIGHTNESS / 3;
+          color_red   += deficit;
+          color_green += deficit;
+          color_blue  += deficit;
+        } else {
+          deficit = MIN_BRIGHTNESS - merged_color;
+          color_red   += deficit * (merged_color - color_red  ) / (merged_color * 2);
+          color_green += deficit * (merged_color - color_green) / (merged_color * 2);
+          color_blue  += deficit * (merged_color - color_blue ) / (merged_color * 2);
+        }
+      }
+    }
+    
+    // draw it
+    representLED(pixel_colrow[0], pixel_colrow[1], color(color_red, color_green, color_blue));
     
     // write the data to the array
-    pixel_colors[pixel_colors_counter++] = byte(red(pixel_color));
-    pixel_colors[pixel_colors_counter++] = byte(green(pixel_color));
-    pixel_colors[pixel_colors_counter++] = byte(blue(pixel_color));
+    // pixel_colors[pixel_colors_counter++] = gamma[byte(  color_red)][0];
+    // pixel_colors[pixel_colors_counter++] = gamma[byte(color_green)][1];
+    // pixel_colors[pixel_colors_counter++] = gamma[byte( color_blue)][2];
+    pixel_colors[pixel_colors_counter++] = byte(  color_red);
+    pixel_colors[pixel_colors_counter++] = byte(color_green);
+    pixel_colors[pixel_colors_counter++] = byte( color_blue);
   }
   
   // Annndddd... Output!!!
@@ -211,7 +238,9 @@ void keyPressed(){
     case('d'):
       println("Colour forward");
       modifier_renderer ++;
+      if (modifier_renderer > 100) {
         modifier_renderer = 0;
+      };
       break;
     case('a'):
       println("Colour back");
