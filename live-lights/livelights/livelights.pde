@@ -88,6 +88,9 @@ void draw() {
         pixel_colors[current_pixel++] = byte(blue(the_color));
       }
     }
+  // make sure the color mode is correct
+  colorMode(RGB, 100);
+  
   }
   
   pixel_colors[current_pixel++] = byte(0);

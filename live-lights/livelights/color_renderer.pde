@@ -5,11 +5,13 @@ class ColorRenderer extends Renderer  {
   ColorRenderer(PApplet core) {
     hue = 0;
     hueMax = 100;
-    colorMode(HSB, hueMax, hueMax, hueMax);
   }
   
   // TODO: need to supply hue adjustments
   boolean draw() {
+    // set the color mode for simple rendering of hue
+    colorMode(HSB, hueMax, hueMax, hueMax);
+    
     // calculate the hue
     hue += 1;
     if (hue > hueMax) hue = 0;
