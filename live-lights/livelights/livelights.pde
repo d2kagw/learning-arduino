@@ -1,5 +1,9 @@
-// Import Time
+// Import Modules
 import processing.serial.*;
+
+// how much logging?
+static final boolean VERBOSE = false;
+static final boolean ENABLE_SERIAL_COMMS = true;
 
 // Display Settings
 static final float DISPLAY_RATIO  = 16.0 / 9.0;
@@ -26,7 +30,6 @@ ArrayList renderers;
 Renderer rendererColor, rendererDisco, rendererVideo;
 
 // Serial Communications
-static final boolean ENABLE_SERIAL_COMMS = false;
 Serial serialConnection;
 
 
@@ -120,7 +123,7 @@ void draw() {
   }
   
   // Annndddd... Output!!!
-  println(pixel_colors);
+  if (VERBOSE) println(pixel_colors);
   if (ENABLE_SERIAL_COMMS) serialConnection.write(pixel_colors);
 }
 
