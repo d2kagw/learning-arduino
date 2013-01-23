@@ -1,40 +1,57 @@
 // Import Time
-import processing.video.*;
 import processing.serial.*;
 
 // Display Settings
-static final int   DISPLAY_WIDTH = 320;
-static final float DISPLAY_RATIO = 16.0 / 9.0;
+static final float DISPLAY_RATIO  = 16.0 / 9.0;
+static final int   DISPLAY_WIDTH  = 320;
+static final int   DISPLAY_HEIGHT = ceil( DISPLAY_WIDTH / DISPLAY_RATIO );
 
 // LED Settings
-static final int LED_COLUMNS = 10;//18;
-static final int LED_ROWS    = 5;
-int LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT;
+static final int LED_COLUMNS      = 18;
+static final int LED_ROWS         = 10;
+static final int LED_BLOCK_WIDTH  = ceil( DISPLAY_WIDTH / (LED_COLUMNS*1.0) );
+static final int LED_BLOCK_HEIGHT = ceil( ceil( DISPLAY_WIDTH / DISPLAY_RATIO ) / LED_ROWS);
+// Note, we deduct 4 because the corner LED's are doubled up using this equation
+static final int LED_COUNT   = ((LED_COLUMNS + LED_ROWS) * 2) - 4;
+
+// Colours & Processing
+short[][] pixel_colors = new short[LED_COUNT][3],
+     prev_pixel_colors = new short[LED_COUNT][3];
+int[][] pixel_location = new int[LED_COLUMNS][LED_ROWS];
+byte[][] gamma = new byte[256][3];
 
 // Renderers & Render Modes
 int render_mode = 0;
 ArrayList renderers;
 Renderer rendererColor, rendererDisco, rendererVideo;
 
-// the serial port
-Serial myPort;
+// Serial Communications
+static final boolean ENABLE_SERIAL_COMMS = false;
+Serial serialConnection;
 
+
+// --------------------------------------------------------
+// Setup the script
 void setup() {
   // set up the screen real estate
-  println("Creating display: " + DISPLAY_WIDTH + "x" + ceil(DISPLAY_WIDTH/DISPLAY_RATIO));
-  size(DISPLAY_WIDTH, ceil(DISPLAY_WIDTH/DISPLAY_RATIO));
+  println("Creating display: " + DISPLAY_WIDTH + "x" + DISPLAY_HEIGHT);
+  size(DISPLAY_WIDTH, DISPLAY_HEIGHT);
   noSmooth();
   
   // ----------------------------------------------------
-  // Setup the LED Structure
+  // Pre-Process values & attributes
+  float f;
+  int i;
+  for(i=0; i<256; i++) {
+    f           = pow((float)i / 255.0, 2.8);
+    gamma[i][0] = (byte)(f * 255.0);
+    gamma[i][1] = (byte)(f * 240.0);
+    gamma[i][2] = (byte)(f * 220.0);
+  };
   
-  LED_BLOCK_WIDTH  = ceil(DISPLAY_WIDTH / LED_COLUMNS);
-  LED_BLOCK_HEIGHT = ceil(ceil(DISPLAY_WIDTH/DISPLAY_RATIO) / LED_ROWS);
   
   // ----------------------------------------------------
   // Setup the Renderers
-  
-  // Setup our renderers
   renderers = new ArrayList();
   println("Creating renderers, this can take a few seconds...");
   
@@ -55,10 +72,16 @@ void setup() {
   
   // ---------------------------------------------------
   // Setup the serial comms
-  println(Serial.list());
-  myPort = new Serial(this, Serial.list()[6], 115200);
+  if (ENABLE_SERIAL_COMMS) {
+    println("Here's our serial ports:");
+    println(Serial.list());
+    serialConnection = new Serial(this, Serial.list()[6], 115200);
+  }
 }
 
+
+// --------------------------------------------------------
+// Run the Renderers & Generate output
 void draw() {
   // create/activate and render the current visualiser
   current_renderer().draw();
@@ -66,93 +89,106 @@ void draw() {
   // Load the pixels
   loadPixels();
   
-  // render the pixels
-  int current_pixel = 0;
-  int led_count = ((LED_COLUMNS + LED_ROWS)*2);
-  int brightness;
-  byte[] pixel_colors = new byte[6 + (led_count*3)];
-  
-  pixel_colors[current_pixel++] = 'A';
-  pixel_colors[current_pixel++] = 'd';
-  pixel_colors[current_pixel++] = 'a';
-  pixel_colors[current_pixel++] = byte((led_count - 1) >> 8);
-  pixel_colors[current_pixel++] = byte((led_count - 1) & 0xff);
-  pixel_colors[current_pixel++] = byte(pixel_colors[3] ^ pixel_colors[4] ^ 0x55);
-  
-  for (int column = 0; column < LED_COLUMNS; column++) {
-    for (int row = 0; row < LED_ROWS; row++) {
-      if (column == 0 || column == LED_COLUMNS-1 || row == 0 || row == LED_ROWS-1) {
-        color the_color = drawPixel(column, row);
-        pixel_colors[current_pixel++] = byte(red(the_color));
-        pixel_colors[current_pixel++] = byte(green(the_color));
-        pixel_colors[current_pixel++] = byte(blue(the_color));
-      }
-    }
   // make sure the color mode is correct
   colorMode(RGB, 100);
   
+  // create the LED array
+  int pixel_colors_counter = 0;
+  byte[] pixel_colors = new byte[6 + (LED_COUNT*3)];
+  pixel_colors[pixel_colors_counter++] = 'A';
+  pixel_colors[pixel_colors_counter++] = 'd';
+  pixel_colors[pixel_colors_counter++] = 'a';
+  pixel_colors[pixel_colors_counter++] = byte((LED_COUNT - 1) >> 8);
+  pixel_colors[pixel_colors_counter++] = byte((LED_COUNT - 1) & 0xff);
+  pixel_colors[pixel_colors_counter++] = byte(pixel_colors[3] ^ pixel_colors[4] ^ 0x55);
+  
+  // We know how many pixels there are, so lets walk around the display
+  // the first LED will be the North West pixel (top left corner of the screen)
+  int row_id, column_id;
+  for (int pixel_id = 0; pixel_id < LED_COUNT; pixel_id ++) {
+    // get the position for the LED
+    int[] pixel_colrow = positionForLED(pixel_id);
+    
+    // get the colour for the LED
+    color pixel_color  = colorForLED(pixel_colrow[0], pixel_colrow[1]);
+    representLED(pixel_colrow[0], pixel_colrow[1], pixel_color);
+    
+    // write the data to the array
+    pixel_colors[pixel_colors_counter++] = byte(red(pixel_color));
+    pixel_colors[pixel_colors_counter++] = byte(green(pixel_color));
+    pixel_colors[pixel_colors_counter++] = byte(blue(pixel_color));
   }
   
-  pixel_colors[current_pixel++] = byte(0);
-  pixel_colors[current_pixel++] = byte(0);
-  pixel_colors[current_pixel++] = byte(0);    
-  
+  // Annndddd... Output!!!
   println(pixel_colors);
-  myPort.write(pixel_colors);
+  if (ENABLE_SERIAL_COMMS) serialConnection.write(pixel_colors);
 }
 
-// ----------------------------------------------------
 
-color drawPixel(int column, int row) {
-  stroke(0);
+// ----------------------------------------------------
+// find the column & row index for a particular LED
+int[] positionForLED(int led_index) {
+  int col_max = LED_COLUMNS-1;
+  int row_max = LED_ROWS-1;
+  int tCol, tRow, tLed_index;
   
+  if (led_index > LED_COUNT-1) {
+    println(LED_COUNT + " DOESN'T EXIST!!! (the index starts at zero)");
+    int[] error_response = {-1, -1};
+    return error_response;
+  } else {
+    if (led_index < LED_COUNT/2) {
+      tCol = min(col_max, led_index);
+      tRow = led_index - col_max;
+      if (led_index < col_max) {
+        tRow = 0;
+      }
+    } else {
+      tLed_index = LED_COUNT - led_index;
+      tCol = tLed_index - row_max;
+      tRow = min(row_max, tLed_index);
+      if (tCol < 0) {
+        tCol = 0;
+      }
+    }
+    int[] response = {tCol, tRow};
+    return response;
+  }
+}
+
+// Color selection/generation
+color colorForLED(int column, int row) {
   // Where are we, pixel-wise?
   int x = column * LED_BLOCK_WIDTH;
   int y = row    * LED_BLOCK_HEIGHT;
   
   // Looking up the appropriate color in the pixel array
-  int pixel = (y+(LED_BLOCK_HEIGHT/2)) * width + (x+(LED_BLOCK_WIDTH/2));
-  color c = pixels[pixel];
-  fill(c);
+  int pixel_north = (y+(LED_BLOCK_HEIGHT/2)-2) * width + (x+(LED_BLOCK_WIDTH/2)  );
+  int pixel_east  = (y+(LED_BLOCK_HEIGHT/2)  ) * width + (x+(LED_BLOCK_WIDTH/2)+2);
+  int pixel_south = (y+(LED_BLOCK_HEIGHT/2)+2) * width + (x+(LED_BLOCK_WIDTH/2)  );
+  int pixel_west  = (y+(LED_BLOCK_HEIGHT/2)  ) * width + (x+(LED_BLOCK_WIDTH/2)-2);
   
-  // draw a block 
-  rect(x, y, LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT);
-  rect(x+(LED_BLOCK_WIDTH/2), y+(LED_BLOCK_HEIGHT/2), 1, 1);
+  color pixel_color = color( int((  red(pixels[pixel_north]) +   red(pixels[pixel_east]) +   red(pixels[pixel_south]) +   red(pixels[pixel_west])) / 4),
+                             int((green(pixels[pixel_north]) + green(pixels[pixel_east]) + green(pixels[pixel_south]) + green(pixels[pixel_west])) / 4),
+                             int(( blue(pixels[pixel_north]) +  blue(pixels[pixel_east]) +  blue(pixels[pixel_south]) +  blue(pixels[pixel_west])) / 4));
   
   // return the color
-  return c;
+  return pixel_color;
 }
+
+// draw a block where the pixel is
+void representLED(int column, int row, color pixel_color) {
+  int x = column * LED_BLOCK_WIDTH;
+  int y = row    * LED_BLOCK_HEIGHT;
+  stroke(0);
+  fill(pixel_color);
+  rect(x, y, LED_BLOCK_WIDTH, LED_BLOCK_HEIGHT);
+  rect(x+(LED_BLOCK_WIDTH/2), y+(LED_BLOCK_HEIGHT/2), 1, 1);
+}
+
 
 // ----------------------------------------------------
-
-// Set the Render mode
-void set_render_mode(int mode_index) {
-  // tell the renderer to stop processing anything it might be processing
-  current_renderer().sleep();
-  
-  // set the renderer
-  render_mode = mode_index;
-  
-  // get it running
-  current_renderer().wake_up();
-}
-
-void next_render_mode() {
-  int tmp = render_mode + 1;
-  if (tmp > renderers.size()-1) {
-    tmp = 0;
-  }
-  
-  set_render_mode(tmp);
-}
-
-// Return the current Renderer
-Renderer current_renderer() {
-  return (Renderer)renderers.get(render_mode);
-}
-
-// ----------------------------------------------------
-
+// IR Remote Simulation
 void keyPressed(){
   switch(key) {
     case('w'):
@@ -178,3 +214,4 @@ void keyPressed(){
       println("Not sure what '" + key + "' is meant to do?");
   }
 }
+
