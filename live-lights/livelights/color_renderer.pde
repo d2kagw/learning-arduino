@@ -8,16 +8,12 @@ class ColorRenderer extends Renderer  {
   }
   
   // TODO: need to supply hue adjustments
-  boolean draw() {
+  boolean draw(int modifier) {
     // set the color mode for simple rendering of hue
     colorMode(HSB, hueMax, hueMax, hueMax);
     
-    // calculate the hue
-    hue += 1;
-    if (hue > hueMax) hue = 0;
-    
     // draw the box
-    fill(hue, hueMax, hueMax);
+    fill(modifier, hueMax, hueMax);
     rect(0, 0, width, height);
     
     // just return true for now

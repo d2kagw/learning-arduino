@@ -19,6 +19,10 @@ class VideoRenderer extends Renderer  {
     }
   }
   
+  boolean shouldManageBrightness() {
+    return true;
+  }
+  
   void wake_up() {
     println("Camera Renderer: Waking Up");
     
@@ -34,7 +38,7 @@ class VideoRenderer extends Renderer  {
     video.stop();
   }
   
-  boolean draw() {
+  boolean draw(int modifier) {
     // Read image from the camera
     if (video.available()) {
       video.read();

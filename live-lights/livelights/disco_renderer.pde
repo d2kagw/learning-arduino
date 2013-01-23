@@ -8,7 +8,7 @@ class DiscoRenderer extends Renderer  {
   }
   
   // TODO: need to supply hue adjustments
-  boolean draw() {
+  boolean draw(int modifier) {
     // set the color mode for simple rendering of hue
     colorMode(HSB, hueMax, hueMax, hueMax);
     
@@ -35,7 +35,7 @@ class DiscoRenderer extends Renderer  {
   
   void wake_up() {
     println("Disco Renderer: Waking Up");
-    frameRate(2);
+    frameRate(12);
   }
   
   void sleep() {

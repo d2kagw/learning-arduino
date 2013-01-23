@@ -32,7 +32,7 @@ class Renderer {
   Renderer() {
     // nada
   }
-  boolean draw() {
+  boolean draw(int modifier) {
     return true;
   }
   void wake_up() {
@@ -40,5 +40,8 @@ class Renderer {
   }
   void sleep() {
     println("Sleep");
+  }
+  boolean shouldManageBrightness() {
+    return false;
   }
 }
