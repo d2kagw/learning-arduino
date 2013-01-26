@@ -61,13 +61,11 @@ class DiscoRenderer extends Renderer  {
   // ------------------------------------
   
   void timeForChange() {
-    timerChange = floor(random(frameRate/2,frameRate*4));
+    timerChange = floor(random(frameRate/2, frameRate*4));
     timer = 0;
     
     currentMode = floor(random(0, modeCount));
-    drawColorHueChange_process = int(random(1,hueMax));
-    
-    println("Changing to mode " + currentMode + " and will run for " + timerChange + " frames");
+    drawColorHueChange_process = int(random(1, hueMax));
   }
   
   // ------------------------------------
