@@ -31,11 +31,12 @@ Then do an update, upgrade and install some base packages:
     sudo apt-get upgrade -y
     sudo apt-get install -y git git-core curl subversion vim build-essential python ruby1.9.1
     
-Then run this sexy mumma:
+Update the firmware:
 
     sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
     sudo rpi-update
-    
+
+And install devtools:
     sudo apt-get install -y python-rpi.gpio zlib1g-dev libssl-dev
 
 
@@ -46,8 +47,7 @@ This guy will either use the display we've got, or create a new one for VNC conn
     sudo apt-get install x11vnc -y
     x11vnc -storepasswd # set it to raspberr
     
-    sudo su
-    cat >/etc/init.d/x11vnc <<EOL
+    sudo tee -a /etc/init.d/x11vnc <<EOF
     #!/bin/sh
     ### BEGIN INIT INFO
     # Provides:          x11vnc
@@ -78,7 +78,6 @@ This guy will either use the display we've got, or create a new one for VNC conn
     esac
     exit 0
     EOL
-    exit
     
     sudo chmod 755 /etc/init.d/x11vnc
     sudo update-rc.d x11vnc default
@@ -88,9 +87,7 @@ This guy will either use the display we've got, or create a new one for VNC conn
     sudo apt-get install netatalk avahi-daemon -y
     sudo update-rc.d avahi-daemon defaults
     
-    sudo vim /etc/avahi/services/afpd.service
-    
-    # this is the contents for the file
+    sudo tee /etc/avahi/services/afpd.service <<EOF
     <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
     <service-group>
@@ -100,43 +97,19 @@ This guy will either use the display we've got, or create a new one for VNC conn
           <port>548</port>
        </service>
     </service-group>
+    EOF
     
-    sudo vim /etc/avahi/services/rfb.service
-    
-    # this is the contents for the file
+    sudo tee /etc/avahi/services/rfb.service <<EOF
     <?xml version="1.0" standalone='no'?>
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
     <service-group>
       <name replace-wildcards="yes">%h</name>
       <service>
         <type>_rfb._tcp</type>
-        <port>5901</port>
+        <port>5900</port>
       </service>
     </service-group>
+    EOF
     
     sudo /etc/init.d/avahi-daemon restart
-
-
-## Setting up Geckoboard
-    
-    sudo apt-get install -y chromium-browser chromium-browser-l10n ttf-mscorefonts-installer
-    echo "[Desktop Entry]" >> ~/.config/autostart/geckoboard.desktop
-    echo "Encoding=UTF-8" >> ~/.config/autostart/geckoboard.desktop
-    echo "Type=Application" >> ~/.config/autostart/geckoboard.desktop
-    echo "Name=Geckoboard" >> ~/.config/autostart/geckoboard.desktop
-    echo "Comment=" >> ~/.config/autostart/geckoboard.desktop
-    echo "Exec=/usr/bin/chromium-browser – -kiosk" >> ~/.config/autostart/geckoboard.desktop
-    echo "StartupNotify=false" >> ~/.config/autostart/geckoboard.desktop
-    echo "Terminal=false" >> ~/.config/autostart/geckoboard.desktop
-    echo "Hidden=false" >> ~/.config/autostart/geckoboard.desktop
-
-
-
-
----
-
-## Good Articles
-
-- [Setup screen sharing](http://4dc5.com/2012/06/12/setting-up-vnc-on-raspberry-pi-for-mac-access/)
-- [Geckoboard](http://www.geckoboard.com/geckopi-run-geckoboard-on-a-raspberry-pi/)
 
