@@ -12,7 +12,6 @@ After finding the IP address, SSH in.
 Remember that the password (unless changed) is `raspberry`
     
     ssh pi@xxx.xxx.xxx.xxx
-    ssh pi@192.168.2.17
 
 ## Setup the machine
     
@@ -32,11 +31,12 @@ Then do an update, upgrade and install some base packages:
     sudo apt-get install -y git git-core curl subversion vim build-essential python ruby1.9.1
     
 Update the firmware:
-
+    
     sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
     sudo rpi-update
 
 And install devtools:
+    
     sudo apt-get install -y python-rpi.gpio zlib1g-dev libssl-dev
 
 
