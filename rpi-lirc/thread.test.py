@@ -11,8 +11,9 @@ class Timer(Thread):
     
   def run(self):
     import time
-    print "Time class is ticking..."
-    time.sleep(1)
+    while(True):
+      print "Time class is ticking..."
+      time.sleep(1)
    
   
 
@@ -23,7 +24,6 @@ class IRRec(Thread):
   
   def run(self):
     global code
-    print "IRRrec awaits IR commands"
     
     if(select.select([self.lirchandle], [], [], 6) == ([], [], [])):
       print "IRRrec timed out"
@@ -53,7 +53,8 @@ if(lirchandle):
       irrec = IRRec(lirchandle)
       irrec.start()
       
-    
+  # stop the time thread
+  tim.stop() 
   
   # Clean up lirc
   pylirc.exit()
