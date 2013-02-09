@@ -2,7 +2,7 @@
 
 import pylirc, time
 blocking = 1;
-conf = "./lircrc"
+conf = "./lirc.config"
 
 if(pylirc.init("pylirc", conf, blocking)):
   code = {"config" : ""}
