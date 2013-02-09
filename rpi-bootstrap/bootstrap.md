@@ -33,6 +33,7 @@ Then do an update, upgrade and install some base packages:
 Update the firmware:
     
     sudo wget http://goo.gl/1BOfJ -O /usr/bin/rpi-update && sudo chmod +x /usr/bin/rpi-update
+    sudo apt-get install -y git-core
     sudo rpi-update
 
 And install devtools:
@@ -47,46 +48,63 @@ This guy will either use the display we've got, or create a new one for VNC conn
     sudo apt-get install x11vnc -y
     x11vnc -storepasswd # set it to raspberr
     
-    sudo tee -a /etc/init.d/x11vnc <<EOF
+    sudo tee /etc/init.d/x11vnc <<EOF
     #!/bin/sh
+    #
+    # /etc/init.d/vnc
+    #
     ### BEGIN INIT INFO
-    # Provides:          x11vnc
-    # Required-Start:    $local_fs
-    # Required-Stop:     $local_fs
-    # Default-Start:     2 3 4 5
-    # Default-Stop:      0 1 6
-    # Short-Description: Start/stop x11vnc
+    # Provides:          x11vnc server
+    # Required-Start:    xdm
+    # Should-Start: 
+    # Required-Stop: 
+    # Should-Stop: 
+    # Default-Start:     5
+    # Default-Stop:      0 1 2 6
+    # Short-Description: 
+    # Description:       Start or stop vnc server
     ### END INIT INFO
- 
-    export USER='pi'
- 
-    eval cd ~$USER
- 
+
+    #INIT SCRIPT VARIABLES
+    SERVICE=$(basename $0)
+    PIDFILE="/var/run/${SERVICE}.pid"
+    BIN="/usr/bin/x11vnc "
+    AUTH=`ps wwaux | grep '/X.*-auth' | grep -v grep | sed -e 's/^.*-auth *//' -e 's/ .*$//' | head -n 1`
+    OPT="-display :0 -auth ${AUTH} -nopw -unixpw -shared -oa /var/log/vnc.log -xkb -bg -verbose  "
+    CMD=${BIN}${OPT}
+
+    . /lib/lsb/init-functions
+
+    # Reset status of this service
+    rc_reset
+
     case "$1" in
-      start)
-        su $USER -c '/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -auth guess -create -display :0 -passwd 'raspberr' -forever -bg -o /var/log/x11vnc.log'
-        echo "Starting x11vnc server for $USER "
+        start)
+        echo -n "Starting ${SERVICE}..."
+            ## Start daemon with startproc(8). 
+        /sbin/startproc ${CMD}
+        sleep 2s
+        # Remember status and be verbose.
+            rc_status -v
         ;;
-      stop)
-        x11vnc -R stop
-        echo "x11vnc stopped"
-        ;;
-      *)
-        echo "Usage: /etc/init.d/x11vnc {start|stop}"
+        *)
+        echo -e "Usage: ${SERVICE} {start}"
         exit 1
         ;;
     esac
-    exit 0
-    EOL
+    rc_exit
+    EOF
     
     sudo chmod 755 /etc/init.d/x11vnc
-    sudo update-rc.d x11vnc default
+    sudo touch /var/log/x11vnc.log
+    sudo chmod 777 /var/log/x11vnc.log
+    sudo update-rc.d x11vnc defaults
 
 ## Setting up File & Screen Sharing for Mac awesomeness:
     
     sudo apt-get install netatalk avahi-daemon -y
     sudo update-rc.d avahi-daemon defaults
-    
+
     sudo tee /etc/avahi/services/afpd.service <<EOF
     <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
@@ -98,7 +116,7 @@ This guy will either use the display we've got, or create a new one for VNC conn
        </service>
     </service-group>
     EOF
-    
+
     sudo tee /etc/avahi/services/rfb.service <<EOF
     <?xml version="1.0" standalone='no'?>
     <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
@@ -110,6 +128,6 @@ This guy will either use the display we've got, or create a new one for VNC conn
       </service>
     </service-group>
     EOF
-    
+
     sudo /etc/init.d/avahi-daemon restart
 
