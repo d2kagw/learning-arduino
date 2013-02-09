@@ -11,13 +11,8 @@ class Timer(Thread):
     
   def run(self):
     import time
-    i = 0
-    while(i < 10):
-      i = i + 1
-      print "Time class is ticking..." + str(i)
-      time.sleep(1)
-      
-    
+    print "Time class is ticking..."
+    time.sleep(1)
    
   
 
@@ -57,13 +52,7 @@ if(lirchandle):
     if(irrec.isAlive() == 0):
       irrec = IRRec(lirchandle)
       irrec.start()
-    
-    # Very intuitive indeed
-    #if(not blocking):
-    print "."
-    
-    # Delay...
-    time.sleep(1)
+      
     
   
   # Clean up lirc
