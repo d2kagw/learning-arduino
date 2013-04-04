@@ -56,6 +56,9 @@ if(lirchandle):
   # stop the time thread
   tim.stop() 
   
+  # stop the time thread
+  tim.stop()
+
   # Clean up lirc
   pylirc.exit()
 

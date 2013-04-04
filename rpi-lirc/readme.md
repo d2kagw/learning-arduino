@@ -4,7 +4,7 @@
 
 Install the libraries:
     
-    sudo apt-get install -y lirc python-pylirc
+    sudo apt-get install -y lirc python-pylirc python-cwiid
 
 Test that they work by running these commands and pushing some remote buttons:
     
