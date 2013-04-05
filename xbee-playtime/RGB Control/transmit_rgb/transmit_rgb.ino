@@ -1,10 +1,6 @@
 #include <SoftwareSerial.h>
 SoftwareSerial mySerial =  SoftwareSerial(2, 3);
 
-int ledR = 11;
-int ledG = 9;
-int ledB = 10;
-
 float r = 0.5;
 float b = 0;
 float g = 0;
