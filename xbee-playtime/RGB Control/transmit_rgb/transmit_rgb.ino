@@ -21,20 +21,20 @@ void loop() {
   r = r + 0.01;
   g = g + 0.02;
   b = b + 0.03;
-
+  
   rData = (int)abs(sin(r)*255.0);
   gData = (int)abs(sin(g)*255.0);
   bData = (int)abs(sin(b)*255.0);
-
+  
   d1  = String(rData);
   d1 += ",";
   d1 += String(gData);
   d1 += ",";
   d1 += String(bData);
   d1 += "e";
-
+  
   Serial.println(d1);
   mySerial.print(d1);
-
+  
   delay(5);
 }
