@@ -7,8 +7,8 @@ int ledB = 11;
 
 int valueR, valueG, valueB;
 
-//int timeout_counter = 0;
-//int timeout_period  = 1000;
+int timeout_counter = 0;
+int timeout_period  = 5000;
 
 void setup() {
   pinMode(ledR, OUTPUT);
@@ -31,19 +31,41 @@ void loop() {
     
     // look for the newline. That's the end of your sentence:
     if (mySerial.read() == 'e') {
-      // fade the red, green, and blue legs of the LED: 
-      analogWrite(ledR, valueR);
-      analogWrite(ledG, valueG);
-      analogWrite(ledB, valueB);
+      // set the LEDs
+      setLED(valueR, valueG, valueB);
       
-      Serial.print(valueR);
-      Serial.print(",");
-      Serial.print(valueG);
-      Serial.print(",");
-      Serial.println(valueB);
+      // reset the timeout manager
+      timeout_counter = 0;
     }
   }
   
+  // manage timeouts
   timeout_counter += 1;
+  if (timeout_counter > timeout_period) {
+    Serial.println("We've reached the timeout");
+    
+    valueR += 1;
+    valueG += 1;
+    valueB += 1;
+    setLED(valueR, valueG, valueB);
+  } 
+}
+
+void setLED(int r, int g, int b) {
+  // constrain
+  r = constrain(r, 0, 255);
+  g = constrain(g, 0, 255);
+  b = constrain(b, 0, 255);
   
+  // fade the red, green, and blue legs of the LED: 
+  analogWrite(ledR, r);
+  analogWrite(ledG, g);
+  analogWrite(ledB, b);
+  
+  // A little 
+  Serial.print(r);
+  Serial.print(",");
+  Serial.print(g);
+  Serial.print(",");
+  Serial.println(b);
 }
