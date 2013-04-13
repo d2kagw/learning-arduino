@@ -1,8 +1,14 @@
 import processing.video.*;
 class VideoRenderer extends Renderer  {
   Capture video;
+  int render_x, render_y, render_width, render_height;
   
-  VideoRenderer(PApplet core) {
+  VideoRenderer(PApplet core, int t_render_x, int t_render_y, int t_render_width, int t_render_height) {
+    render_x      = t_render_x;
+    render_y      = t_render_y;
+    render_width  = t_render_width;
+    render_height = t_render_height;
+    
     String[] cameras = Capture.list();
     
     if (cameras.length == 0) {
@@ -15,7 +21,7 @@ class VideoRenderer extends Renderer  {
       }
       
       // TODO: we need to feed in the camera name here
-      video = new Capture(core, width, height, 30);
+      video = new Capture(core, render_width, render_height, 30);
     }
   }
   
@@ -27,9 +33,9 @@ class VideoRenderer extends Renderer  {
     println("Camera Renderer: Waking Up");
     
     fill(0);
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
     
-    frameRate(30);
+    frameRate(18);
     video.start();
   }
   
@@ -46,7 +52,7 @@ class VideoRenderer extends Renderer  {
     video.loadPixels();
     
     // lets render actual picture in the background for testing
-    image(video, 0, 0, width, height);
+    image(video, render_x, render_y, render_width, render_height);
     
     // just return true for now
     // TODO: implemenent error handling

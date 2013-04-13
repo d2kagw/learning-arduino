@@ -1,8 +1,14 @@
 class ColorRenderer extends Renderer  {
   int hue;
   int hueMax;
+  int render_x, render_y, render_width, render_height;
   
-  ColorRenderer(PApplet core) {
+  ColorRenderer(PApplet core, int t_render_x, int t_render_y, int t_render_width, int t_render_height) {
+    render_x      = t_render_x;
+    render_y      = t_render_y;
+    render_width  = t_render_width;
+    render_height = t_render_height;
+    
     hue = 0;
     hueMax = 100;
   }
@@ -14,7 +20,7 @@ class ColorRenderer extends Renderer  {
     
     // draw the box
     fill(modifier, hueMax, hueMax);
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
     
     // just return true for now
     // TODO: implemenent error handling

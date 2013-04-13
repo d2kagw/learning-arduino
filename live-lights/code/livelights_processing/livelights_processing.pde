@@ -64,15 +64,15 @@ void setup() {
   println("Creating renderers, this can take a few seconds...");
   
   // create color renderer
-  rendererColor = new ColorRenderer(this);
+  rendererColor = new ColorRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   renderers.add(rendererColor);
   
   // create disco renderer
-  rendererDisco = new DiscoRenderer(this);
+  rendererDisco = new DiscoRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   renderers.add(rendererDisco);
   
   // create video renderer
-  rendererVideo = new VideoRenderer(this);
+  rendererVideo = new VideoRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   renderers.add(rendererVideo);
   
   // setup the renderer

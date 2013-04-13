@@ -1,5 +1,6 @@
 class DiscoRenderer extends Renderer  {
   int hueMax;
+  int render_x, render_y, render_width, render_height;
   
   int currentMode;
   static final int modeCount = 5;
@@ -7,11 +8,16 @@ class DiscoRenderer extends Renderer  {
   int timer;
   int timerChange;
   
-  DiscoRenderer(PApplet core) {
+  DiscoRenderer(PApplet core, int t_render_x, int t_render_y, int t_render_width, int t_render_height) {
+    render_x      = t_render_x;
+    render_y      = t_render_y;
+    render_width  = t_render_width;
+    render_height = t_render_height;
+    
     hueMax = 100;
   }
   
-  // TODO: need to supply hue adjustments
+  // TODO: need to make use of the 
   boolean draw(int modifier) {
     // set the color mode for simple rendering of hue
     colorMode(HSB, hueMax, hueMax, hueMax);
@@ -73,16 +79,16 @@ class DiscoRenderer extends Renderer  {
   void drawColorCorners(int modifier) {
     // draw four blocks
     fill(int(random(1,100)), hueMax, hueMax);
-    rect(0, 0, width/2, height/2);
+    rect(render_x, render_y, render_width/2, render_height/2);
     
     fill(int(random(1,100)), hueMax, hueMax);
-    rect(width/2, 0, width/2, height/2);
+    rect((render_width/2)+render_x, render_y, render_width/2, render_height/2);
     
     fill(int(random(1,100)), hueMax, hueMax);
-    rect(0, height/2, width/2, height/2);
+    rect(render_x, (render_height/2)+render_y, render_width/2, render_height/2);
     
     fill(int(random(1,100)), hueMax, hueMax);
-    rect(width/2, height/2, width/2, height/2);
+    rect((render_width/2)+render_x, (render_height/2)+render_y, render_width/2, render_height/2);
   }
   
   // ------------------------------------
@@ -96,7 +102,7 @@ class DiscoRenderer extends Renderer  {
     
     // draw four blocks
     fill(drawColorHueChange_process, hueMax, hueMax);
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
   }
   
   // ------------------------------------
@@ -109,7 +115,7 @@ class DiscoRenderer extends Renderer  {
     
     // draw four blocks
     fill(drawColorHueChange_process, hueMax, hueMax);
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
   }
   
   // ------------------------------------
@@ -122,7 +128,7 @@ class DiscoRenderer extends Renderer  {
     } else {
       fill(0, 0, 0);
     }
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
     strobeState = !strobeState;
   }
   
@@ -135,7 +141,7 @@ class DiscoRenderer extends Renderer  {
     } else {
       fill(0, hueMax, 0);
     }
-    rect(0, 0, width, height);
+    rect(render_x, render_y, render_width, render_height);
     strobeState = !strobeState;
   }
 }
