@@ -1,15 +1,4 @@
 #include <SPI.h>
-#include "Adafruit_NECremote.h"
-
-// LED pin for Arduino:
-#define LED_DDR  DDRB
-#define LED_PORT PORTB
-#define LED_PIN  _BV(PORTB5)
-
-// Setup the remote control
-#define IR_PIN   4
-int IR_lastCode = -1;
-Adafruit_NECremote remote(IR_PIN);
 
 // A 'magic word' (along with LED count & checksum) precedes each block
 // of LED data; this assists the microcontroller in syncing up with the
@@ -72,7 +61,7 @@ void setup() {
   SPI.setBitOrder(MSBFIRST);
   SPI.setDataMode(SPI_MODE0);
   SPI.setClockDivider(SPI_CLOCK_DIV16); // 1 MHz max, else flicker
-
+  
   // Issue test pattern to LEDs on startup.  This helps verify that
   // wiring between the Arduino and LEDs is correct.  Not knowing the
   // actual number of LEDs connected, this sets all of them (well, up
@@ -97,27 +86,6 @@ void setup() {
   // loop() is avoided as even that small bit of function overhead
   // has a measurable impact on this code's overall throughput.
   for(;;) {
-    
-    // // Up first, lets check the IR status
-    // int ir_command = remote.listen();
-    // if (ir_command >= 0) {
-    //   IR_lastCode = ir_command;
-    //   Serial.print("IR:");
-    //   Serial.print(IR_lastCode);
-    //   Serial.print("\n");
-    //   
-    // } else if (ir_command == -3) {
-    //   // repeated IR_lastCode
-    //   Serial.print("IR:");
-    //   Serial.print(IR_lastCode);
-    //   Serial.print("\n");
-    //   
-    // } else if (ir_command == -2) {
-    //   // error
-    //   Serial.print("IR:error\n");
-    // } else {
-    //   // timeout
-    // }
     
     // Implementation is a simple finite-state machine.
     // Regardless of mode, check for serial input each time:
@@ -182,7 +150,6 @@ void setup() {
         mode      = MODE_DATA; // ...and fall through (no break):
         
       case MODE_DATA:
-      
         while(spiFlag && !(SPSR & _BV(SPIF))); // Wait for prior byte
         if(bytesRemaining > 0) {
           if(bytesBuffered > 0) {
@@ -210,7 +177,4 @@ void setup() {
   } // end for(;;)
 }
 
-void loop()
-{
-// Not used.  See note in setup() function.
-}
+void loop(){}

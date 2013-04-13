@@ -2,8 +2,8 @@
 import processing.serial.*;
 
 // how much logging?
-static final boolean VERBOSE = false;
-static final boolean ENABLE_SERIAL_COMMS = true;
+static final boolean VERBOSE = true;
+static final boolean ENABLE_SERIAL_COMMS = false;
 
 // Display Settings
 static final float DISPLAY_RATIO  = 16.0 / 9.0;
