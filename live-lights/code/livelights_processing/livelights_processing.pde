@@ -27,11 +27,15 @@ static final int LED_COUNT   = ((LED_COLUMNS + LED_ROWS) * 2) - 4;
 
 // Colours, Histograms & Processing
 static final int MIN_BRIGHTNESS = 40;
-static final int HISTOGRAM_AMBIENT_LEVEL = 100;
-static final int HISTOGRAM_AMBIENT_RANGE = 40;
-int[][] pixel_colors = new int[LED_COUNT][3];
-int[][]    histogram = new int[3][256];
-byte[][]       gamma = new byte[256][3];
+static final int HISTOGRAM_AMBIENT_AVERAGING = 10;
+static final int HISTOGRAM_AMBIENT_LEVEL = 125;
+static final int HISTOGRAM_AMBIENT_RANGE = 80;
+int[][]    pixel_colors = new int[LED_COUNT][3];
+int[][]       histogram = new int[3][256];
+
+ArrayList history_red = new ArrayList();
+ArrayList history_green = new ArrayList();
+ArrayList history_blue = new ArrayList();
 
 // Renderers & Render Modes
 int render_mode = 0;
@@ -56,7 +60,7 @@ void setup() {
   
   // ----------------------------------------------------
   // Pre-Process values & attributes
-  build_gamma();
+  // build_gamma();
   
   // ----------------------------------------------------
   // Setup the Renderers
@@ -106,28 +110,7 @@ void draw() {
   
   // generate the histograms
   colorMode(RGB, 255);
-  histogram = new int[3][256];
-  for (int w = 0; w < VIDEO_WIDTH; w++) {
-    for (int h = 0; h < VIDEO_HEIGHT; h++) {
-      histogram[0][int(  red(get(w, h)))] ++;
-      histogram[1][int(green(get(w, h)))] ++;
-      histogram[2][int( blue(get(w, h)))] ++;
-    }
-  }
-  
-  // Histogram Logging
-  if (VERBOSE) {
-    for (int h = 0; h < 3; h++) {
-      print("Histogram ");
-      print(h);
-      print(": ");
-      for (int i=0; i < 255; i ++) {
-        print(histogram[h][i]);
-        print(",");
-      }
-      println("end");
-    }
-  }
+  histogram = build_histogram();
   
   // what's the max overal channel value
   channel_max = max(max(histogram[0]), max(histogram[1]), max(histogram[2]));
@@ -145,7 +128,7 @@ void draw() {
     rect(histogram_x, histogram_y, HISTOGRAM_WIDTH, HISTOGRAM_HEIGHT);
     
     // draw the lines
-    for (int i=0; i < 255; i ++) {
+    for (int i=0; i<255; i++) {
       int y = int(map(float(histogram[h][i]), 0.0, float(channel_max), 0.0, float(HISTOGRAM_HEIGHT)));
       line(histogram_x+i, histogram_y+HISTOGRAM_HEIGHT-y, histogram_x+i, histogram_y+HISTOGRAM_HEIGHT);
     }
@@ -159,28 +142,12 @@ void draw() {
   line(VIDEO_WIDTH+HISTOGRAM_AMBIENT_LEVEL, 0, VIDEO_WIDTH+HISTOGRAM_AMBIENT_LEVEL, HISTOGRAM_HEIGHT*3);
   
   // calc the ambient colour
-  int r_total = 0;
-  int g_total = 0;
-  int b_total = 0;
-  int position;
-  for (int h=0; h<3; h++) {
-    for (int range=0; range<HISTOGRAM_AMBIENT_RANGE; range++) {
-      position = (HISTOGRAM_AMBIENT_LEVEL - (HISTOGRAM_AMBIENT_RANGE / 2)) + range;
-      if (h==0) r_total += histogram[0][position];
-      if (h==1) g_total += histogram[0][position];
-      if (h==2) b_total += histogram[0][position];
-    }
-  }
-  
-  channel_max = max(r_total, g_total, b_total);
-  int r = int(map(float(r_total), 0.0, float(channel_max), 0.0, 255.0));
-  int g = int(map(float(g_total), 0.0, float(channel_max), 0.0, 255.0));
-  int b = int(map(float(b_total), 0.0, float(channel_max), 0.0, 255.0));
-  fill(r, g, b);
+  color ambient_color = ambient_color(histogram);
+  fill(ambient_color);
   stroke(0,255);
   rect(VIDEO_WIDTH, HISTOGRAM_HEIGHT*3,  HISTOGRAM_WIDTH, HISTOGRAM_HEIGHT);
   
-  // make sure the color mode is correct
+  // make sure the color mode is good for LED management
   colorMode(RGB, 100);
   
   // create the LED array
@@ -304,17 +271,104 @@ void representLED(int column, int row, color pixel_color) {
   rect(x+(LED_BLOCK_WIDTH/2), y+(LED_BLOCK_HEIGHT/2), 1, 1);
 }
 
-// build our gamma index
-void build_gamma() {
-  float f;
-  int i;
-  for(i=0; i<256; i++) {
-    f           = pow((float)i / 255.0, 2.8);
-    gamma[i][0] = (byte)(f * 255.0);
-    gamma[i][1] = (byte)(f * 240.0);
-    gamma[i][2] = (byte)(f * 220.0);
-  };
+// build the histogram
+int[][] build_histogram() {
+  int[][] temp_histogram = new int[3][256];
+  for (int w = 0; w < VIDEO_WIDTH; w++) {
+    for (int h = 0; h < VIDEO_HEIGHT; h++) {
+      temp_histogram[0][int(  red(get(w, h)))] ++;
+      temp_histogram[1][int(green(get(w, h)))] ++;
+      temp_histogram[2][int( blue(get(w, h)))] ++;
+    }
+  }
+  
+  // exclude the absolute blacks
+  temp_histogram[0][0] = 0;
+  temp_histogram[1][0] = 0;
+  temp_histogram[2][0] = 0;
+  
+  // exclude the absolute whites
+  temp_histogram[0][255] = 0;
+  temp_histogram[1][255] = 0;
+  temp_histogram[2][255] = 0;
+  
+  // Histogram Logging
+  if (VERBOSE) {
+    for (int h = 0; h < 3; h++) {
+      print("Histogram ");
+      print(h);
+      print(": ");
+      for (int i=0; i < 255; i ++) {
+        print(temp_histogram[h][i]);
+        print(",");
+      }
+      println("end");
+    }
+  }
+  
+  return temp_histogram;
 }
+
+color ambient_color(int[][] histogram) {
+  int r_total = 0;
+  int g_total = 0;
+  int b_total = 0;
+  int position;
+  for (int h=0; h<3; h++) {
+    for (int range=0; range<HISTOGRAM_AMBIENT_RANGE; range++) {
+      position = (HISTOGRAM_AMBIENT_LEVEL - (HISTOGRAM_AMBIENT_RANGE / 2)) + range;
+      if (h==0) r_total += histogram[h][position];
+      if (h==1) g_total += histogram[h][position];
+      if (h==2) b_total += histogram[h][position];
+    }
+  }
+  
+  channel_max = max(r_total, g_total, b_total);
+  int r = int(map(float(r_total), 0.0, float(channel_max), 0.0, 255.0));
+  int g = int(map(float(g_total), 0.0, float(channel_max), 0.0, 255.0));
+  int b = int(map(float(b_total), 0.0, float(channel_max), 0.0, 255.0));
+  
+  // average out the values
+  history_red.add(0, r);
+  history_green.add(0, g);
+  history_blue.add(0, b);
+  
+  if (  history_red.size() > HISTOGRAM_AMBIENT_AVERAGING)   history_red.remove(HISTOGRAM_AMBIENT_AVERAGING);
+  if (history_green.size() > HISTOGRAM_AMBIENT_AVERAGING) history_green.remove(HISTOGRAM_AMBIENT_AVERAGING);
+  if ( history_blue.size() > HISTOGRAM_AMBIENT_AVERAGING)  history_blue.remove(HISTOGRAM_AMBIENT_AVERAGING);
+  
+  int r_avg = 0;
+  for(int i=0; i<history_red.size(); i++) {
+    r_avg = r_avg + (Integer)history_red.get(i);
+  }
+  r_avg = r_avg / history_red.size();
+  
+  int g_avg = 0;
+  for(int i=0; i<history_green.size(); i++) {
+    g_avg = g_avg + (Integer)history_green.get(i);
+  }
+  g_avg = g_avg / history_green.size();
+  
+  int b_avg = 0;
+  for(int i=0; i<history_blue.size(); i++) {
+    b_avg = b_avg + (Integer)history_blue.get(i);
+  }
+  b_avg = b_avg / history_blue.size();
+  
+  return color(r_avg, g_avg, b_avg);
+}
+
+// build our gamma index
+// void build_gamma() {
+//   float f;
+//   int i;
+//   for(i=0; i<256; i++) {
+//     f           = pow((float)i / 255.0, 2.8);
+//     gamma[i][0] = (byte)(f * 255.0);
+//     gamma[i][1] = (byte)(f * 240.0);
+//     gamma[i][2] = (byte)(f * 220.0);
+//   };
+// }
 
 // ----------------------------------------------------
 // IR Remote Simulation
