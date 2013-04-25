@@ -36,7 +36,7 @@ byte[][]       gamma = new byte[256][3];
 // Renderers & Render Modes
 int render_mode = 0;
 ArrayList renderers;
-Renderer rendererColor, rendererDisco, rendererVideo;
+Renderer rendererColor, rendererDisco, rendererVideo, rendererMovie;
 
 // Modifier Settings
 int modifier_brightness = 100;
@@ -70,6 +70,10 @@ void setup() {
   // create disco renderer
   rendererDisco = new DiscoRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
   renderers.add(rendererDisco);
+  
+  // create movie renderer
+  rendererMovie = new MovieRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
+  renderers.add(rendererMovie);
   
   // create video renderer
   rendererVideo = new VideoRenderer(this, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
@@ -351,5 +355,12 @@ void keyPressed(){
 }
 
 
+
+
+
+// DELETE ME WHEN I DON'T NEED THE TEXT MOVIE RENDERER THING ANYMORE
+void movieEvent(Movie m) {
+  m.read();
+}
 
 
