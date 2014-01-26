@@ -9,8 +9,8 @@ String d1;
 int rData, gData, bData;
 
 void setup() {
-  Serial.begin(19200);
-  mySerial.begin(19200);
+  Serial.begin(9600);
+  mySerial.begin(9600);
 }
 
 void loop() {

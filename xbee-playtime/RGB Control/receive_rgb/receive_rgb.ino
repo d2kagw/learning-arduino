@@ -15,7 +15,7 @@ unsigned long timeout_last_reset = millis();
 boolean faded_out;
 
 // set to true if you want to see action on the Serial output
-boolean logging = false;
+boolean logging = true;
 
 // setup
 void setup() {
@@ -29,10 +29,10 @@ void setup() {
   
   // setup serial comms
   if (logging) {
-    Serial.begin(19200);
+    Serial.begin(9600);
     Serial.println("Ready to recieve");
   }
-  mySerial.begin(19200);
+  mySerial.begin(9600);
   mySerial.println("Ready");
 }
 
