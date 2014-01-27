@@ -193,4 +193,4 @@ If nothing happens, make sure the Processing code is running, and that it's push
 
 Lastly, if the Arduino doesn't get data from the controller Xbee the LED will slowly fade to black. Which I thought was a nice touch :D
 
-As always, you can find the code on my (Github account)[].
+As always, you can find the code on my (Github account)[https://github.com/d2kagw/learning-arduino/tree/master/xbee-playtime/processing-control].
