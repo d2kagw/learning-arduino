@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="87.300003"
+   height="45"
+   viewBox="0 0 87.300001 44.999999"
+   id="Layer_1"
+   xml:space="preserve"><metadata
+   id="metadata6147"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs6145" />
+<text
+   x="24.323282"
+   y="6.1152768"
+   id="text3869_2_"
+   style="font-size:6.32864046px;font-family:DroidSans">Xbee Adapter</text>
+
+<g
+   transform="matrix(1.2484988,0,0,1.2484988,-3.5120005,-103.9894)"
+   id="g6073">
+	<line
+   stroke-miterlimit="10"
+   x1="69.900002"
+   y1="103"
+   x2="69.900002"
+   y2="117.4"
+   id="line6075"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+	
+		<text
+   transform="matrix(0,1,-1,0,68.6077,95.3648)"
+   id="text3859_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">3V</text>
+
+	<g
+   id="g6078">
+		<line
+   stroke-miterlimit="10"
+   x1="5.0999999"
+   y1="103"
+   x2="5.0999999"
+   y2="117.4"
+   id="line6080"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,3.6594,95.3648)"
+   id="text3861_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">3V</text>
+
+	</g>
+	<g
+   id="g6083">
+		<line
+   stroke-miterlimit="10"
+   x1="26.700001"
+   y1="103"
+   x2="26.700001"
+   y2="117.4"
+   id="line6085"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,25.3074,90.377)"
+   id="text3863_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">GND</text>
+
+	</g>
+	<g
+   id="g6088">
+		<line
+   stroke-miterlimit="10"
+   x1="19.5"
+   y1="103"
+   x2="19.5"
+   y2="117.4"
+   id="line6090"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,18.0906,92.7852)"
+   id="text3865_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">RST</text>
+
+	</g>
+	<g
+   id="g6093">
+		<line
+   stroke-miterlimit="10"
+   x1="12.3"
+   y1="103"
+   x2="12.3"
+   y2="117.4"
+   id="line6095"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,10.8738,91.9488)"
+   id="text3867_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">DTR</text>
+
+	</g>
+	<g
+   id="g6098">
+		<line
+   stroke-miterlimit="10"
+   x1="33.900002"
+   y1="103"
+   x2="33.900002"
+   y2="117.4"
+   id="line6100"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,32.5237,92.7852)"
+   id="text3869_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">RTS</text>
+
+	</g>
+	<g
+   id="g6103">
+		<line
+   stroke-miterlimit="10"
+   x1="41.099998"
+   y1="103"
+   x2="41.099998"
+   y2="117.4"
+   id="line6105"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,39.7405,92.5728)"
+   id="text3871_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">+5V</text>
+
+	</g>
+	<g
+   id="g6108">
+		<line
+   stroke-miterlimit="10"
+   x1="48.299999"
+   y1="103"
+   x2="48.299999"
+   y2="117.4"
+   id="line6110"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,46.9588,95.274)"
+   id="text3873_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">RX</text>
+
+	</g>
+	<g
+   id="g6113">
+		<line
+   stroke-miterlimit="10"
+   x1="55.5"
+   y1="103"
+   x2="55.5"
+   y2="117.4"
+   id="line6115"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,54.1746,95.6329)"
+   id="text3875_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">TX</text>
+
+	</g>
+	<g
+   id="g6118">
+		<line
+   stroke-miterlimit="10"
+   x1="62.700001"
+   y1="103"
+   x2="62.700001"
+   y2="117.4"
+   id="line6120"
+   style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+		
+			<text
+   transform="matrix(0,1,-1,0,61.3904,92.7183)"
+   id="text3877_1_"
+   style="font-size:5.06899977px;font-family:DroidSans">CTS</text>
+
+	</g>
+</g>
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="0.6080457"
+   y="40.33683"
+   id="rect6123"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="9.5972376"
+   y="40.33683"
+   id="rect6125"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="18.46158"
+   y="40.33683"
+   id="rect6127"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="27.450771"
+   y="40.33683"
+   id="rect6129"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="36.43996"
+   y="40.33683"
+   id="rect6131"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="45.429153"
+   y="40.33683"
+   id="rect6133"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="54.418346"
+   y="40.33683"
+   id="rect6135"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="63.407532"
+   y="40.33683"
+   id="rect6137"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="72.646431"
+   y="40.33683"
+   id="rect6139"
+   style="fill:none" />
+<rect
+   width="4.4945955"
+   height="4.4945955"
+   x="81.63562"
+   y="40.33683"
+   id="rect6141"
+   style="fill:none" />
+</svg>

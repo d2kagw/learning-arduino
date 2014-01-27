@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="9.8999996"
+   height="90.900002"
+   viewBox="0 0 9.8999992 90.900003"
+   id="Layer_1"
+   xml:space="preserve"><metadata
+   id="metadata6911"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs6909" />
+<g
+   transform="matrix(1.2451167,0,0,1.2451167,-1.153024,-1.2646486)"
+   id="g6865">
+	<g
+   id="copper0">
+		<rect
+   width="4.1999998"
+   height="4.1999998"
+   x="3"
+   y="3"
+   id="square_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="5"
+   r="2.0999999"
+   id="connector1pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="12.2"
+   r="2.0999999"
+   id="connector2pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="19.4"
+   r="2.0999999"
+   id="connector3pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="26.6"
+   r="2.0999999"
+   id="connector4pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="33.799999"
+   r="2.0999999"
+   id="connector5pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="41"
+   r="2.0999999"
+   id="connector6pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="48.200001"
+   r="2.0999999"
+   id="connector7pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="55.400002"
+   r="2.0999999"
+   id="connector8pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="62.599998"
+   r="2.0999999"
+   id="connector9pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		<circle
+   cx="5"
+   cy="69.800003"
+   r="2.0999999"
+   id="connector10pin_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+	</g>
+</g>
+<g
+   transform="matrix(1.2451167,0,0,1.2451167,-1.153024,-1.2646486)"
+   id="g6879">
+	<g
+   id="copper1">
+		<g
+   id="copper0_1_">
+			<rect
+   width="4.1999998"
+   height="4.1999998"
+   x="3"
+   y="3"
+   id="square_1_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="5"
+   r="2.0999999"
+   id="connector1pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="12.2"
+   r="2.0999999"
+   id="connector2pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="19.4"
+   r="2.0999999"
+   id="connector3pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="26.6"
+   r="2.0999999"
+   id="connector4pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="33.799999"
+   r="2.0999999"
+   id="connector5pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="41"
+   r="2.0999999"
+   id="connector6pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="48.200001"
+   r="2.0999999"
+   id="connector7pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="55.400002"
+   r="2.0999999"
+   id="connector8pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="62.599998"
+   r="2.0999999"
+   id="connector9pin_2_"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+			<circle
+   cx="5"
+   cy="69.800003"
+   r="2.0999999"
+   id="connector10pin"
+   style="fill:none;stroke:#ffbf00;stroke-width:1.44000006" />
+		</g>
+	</g>
+</g>
+<g
+   transform="matrix(1.2451167,0,0,1.2451167,-1.153024,-1.2646486)"
+   id="g6894">
+	<g
+   id="silkscreen">
+		<line
+   x1="1.4"
+   y1="1.4"
+   x2="1.4"
+   y2="73.400002"
+   id="line6897"
+   style="fill:none;stroke:#ffffff;stroke-width:0.72000003" />
+		<line
+   x1="1.4"
+   y1="73.400002"
+   x2="8.6000004"
+   y2="73.400002"
+   id="line6899"
+   style="fill:none;stroke:#ffffff;stroke-width:0.72000003" />
+		<line
+   x1="8.6000004"
+   y1="73.400002"
+   x2="8.6000004"
+   y2="1.4"
+   id="line6901"
+   style="fill:none;stroke:#ffffff;stroke-width:0.72000003" />
+		<line
+   x1="8.6000004"
+   y1="1.4"
+   x2="1.4"
+   y2="1.4"
+   id="line6903"
+   style="fill:none;stroke:#ffffff;stroke-width:0.72000003" />
+		<line
+   x1="1.4"
+   y1="4"
+   x2="4"
+   y2="1.4"
+   id="line6905"
+   style="fill:none;stroke:#ffffff;stroke-width:0.36000001" />
+	</g>
+</g>
+</svg>
