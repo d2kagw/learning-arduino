@@ -32,5 +32,5 @@ void loop() {
   Serial.println(d1);
   mySerial.print(d1);
   
-  delay(5);
+  delay(100);
 }

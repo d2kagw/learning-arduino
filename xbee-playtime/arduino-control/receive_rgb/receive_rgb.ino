@@ -2,8 +2,8 @@
 SoftwareSerial mySerial =  SoftwareSerial(2, 3);
 
 // LED pins
-int ledR = 10;
-int ledG = 11;
+int ledR = 11;
+int ledG = 10;
 int ledB =  9;
 
 // RGB Calculated Values
@@ -56,16 +56,16 @@ void loop() {
   }
   
   // manage timeouts
-  faded_out = (valueR + valueG + valueB) >= (255*3);
+  faded_out = (valueR + valueG + valueB) = 0;
   if (((timeout_last_reset + timeout_period) < millis()) && !faded_out) {
     if (logging) {
       Serial.println("We've reached the timeout");
     }
     
-    // fade out, constrain - common cathode
-    valueR = constrain(valueR+1, 0, 255);
-    valueG = constrain(valueG+1, 0, 255);
-    valueB = constrain(valueB+1, 0, 255);
+    // fade out & constrain
+    valueR = constrain(valueR-1, 0, 255);
+    valueG = constrain(valueG-1, 0, 255);
+    valueB = constrain(valueB-1, 0, 255);
     
     // set the LEDs
     setLED(valueR, valueG, valueB);
@@ -77,20 +77,21 @@ void loop() {
 
 // test pattern
 void testPattern() {
-  setLED(0,255,255);
+  setLED(255,0,0);
   delay(500);
-  setLED(255,0,255);
+  setLED(0,255,0);
   delay(500);
-  setLED(255,255,0);
+  setLED(0,0,255);
   delay(500);
-  setLED(255,255,255);
+  setLED(0,0,0);
 }
 
 // set the LED colours
 void setLED(int r, int g, int b) {
-  analogWrite(ledR, r);
-  analogWrite(ledG, g);
-  analogWrite(ledB, b);
+  // My LEDs are common-cathode, so big number = low light
+  analogWrite(ledR, map(r, 0, 255, 255, 0));
+  analogWrite(ledG, map(g, 0, 255, 255, 0));
+  analogWrite(ledB, map(b, 0, 255, 255, 0));
   
   // output the current versions
   if (logging) {
